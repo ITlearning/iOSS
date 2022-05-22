@@ -38,10 +38,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard !list.isEmpty else {
             return
         }
-
         self.navigationItem.leftBarButtonItem = doneButton
         todoListTableView.setEditing(true, animated: true)
-        
     }
     
     
@@ -57,7 +55,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         guard !list[indexPath.row].isComplete else {
             return
         }
-     
         // 리스트 선택 시 완료된 할일 표시(checkmark)
         list[indexPath.row].isComplete = true
      
@@ -78,7 +75,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                    "isComplete": $0.isComplete
                ]
            }
-           
            print(type(of: data))
            let userDefaults = UserDefaults.standard
            userDefaults.set(data, forKey: "items")
@@ -97,9 +93,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
            // list 배열에 저장하기
            print(type(of: data))
            list = data.map {
-               var title = $0["title"] as? String
-               var content = $0["content"] as? String
-               var isComplete = $0["isComplete"] as? Bool
+               let title = $0["title"] as? String
+               let content = $0["content"] as? String
+               let isComplete = $0["isComplete"] as? Bool
                
                return TodoList(title: title!, content: content!, isComplete: isComplete!)
            }
@@ -118,7 +114,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         todoListTableView.dataSource = self
         doneButton.style = .plain
         doneButton.target = self
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -128,9 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return list.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -140,15 +133,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.detailTextLabel?.text = list[indexPath.row].content
         
         if list[indexPath.row].isComplete {
-            
             cell.accessoryType = .checkmark
-            
         } else {
-            
             cell.accessoryType = .none
-            
         }
-     
         return cell
     }
   
