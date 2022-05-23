@@ -9,15 +9,16 @@
 /* Begin PBXBuildFile section */
 		FD0B73C6283A993F00B6B7E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73C5283A993F00B6B7E8 /* AppDelegate.swift */; };
 		FD0B73C8283A993F00B6B7E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73C7283A993F00B6B7E8 /* SceneDelegate.swift */; };
-		FD0B73CA283A993F00B6B7E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73C9283A993F00B6B7E8 /* ViewController.swift */; };
+		FD0B73CA283A993F00B6B7E8 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73C9283A993F00B6B7E8 /* FeedViewController.swift */; };
 		FD0B73D0283A993F00B6B7E8 /* LightInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73CE283A993F00B6B7E8 /* LightInstagram.xcdatamodeld */; };
 		FD0B73D2283A993F00B6B7E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD0B73D1283A993F00B6B7E8 /* Assets.xcassets */; };
-		FD0B73D5283A993F00B6B7E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD0B73D3283A993F00B6B7E8 /* LaunchScreen.storyboard */; };
 		FD0B73E0283A993F00B6B7E8 /* LightInstagramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73DF283A993F00B6B7E8 /* LightInstagramTests.swift */; };
 		FD0B73EA283A993F00B6B7E8 /* LightInstagramUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73E9283A993F00B6B7E8 /* LightInstagramUITests.swift */; };
 		FD0B73EC283A993F00B6B7E8 /* LightInstagramUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73EB283A993F00B6B7E8 /* LightInstagramUITestsLaunchTests.swift */; };
 		FD61B3E3283AA1E200B1C141 /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD61B3E2283AA1E200B1C141 /* SnapKit.xcframework */; };
 		FD61B3E4283AA1E200B1C141 /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FD61B3E2283AA1E200B1C141 /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FD689814283B401D003D434C /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD689813283B401D003D434C /* UserViewController.swift */; };
+		FD689816283B4031003D434C /* AddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD689815283B4031003D434C /* AddEditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +56,9 @@
 		FD0B73C2283A993F00B6B7E8 /* LightInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD0B73C5283A993F00B6B7E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD0B73C7283A993F00B6B7E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FD0B73C9283A993F00B6B7E8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FD0B73C9283A993F00B6B7E8 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		FD0B73CF283A993F00B6B7E8 /* LightInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LightInstagram.xcdatamodel; sourceTree = "<group>"; };
 		FD0B73D1283A993F00B6B7E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FD0B73D4283A993F00B6B7E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD0B73D6283A993F00B6B7E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD0B73DB283A993F00B6B7E8 /* LightInstagramTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightInstagramTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD0B73DF283A993F00B6B7E8 /* LightInstagramTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightInstagramTests.swift; sourceTree = "<group>"; };
@@ -66,6 +66,8 @@
 		FD0B73E9283A993F00B6B7E8 /* LightInstagramUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightInstagramUITests.swift; sourceTree = "<group>"; };
 		FD0B73EB283A993F00B6B7E8 /* LightInstagramUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightInstagramUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		FD61B3E2283AA1E200B1C141 /* SnapKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SnapKit.xcframework; path = Carthage/Build/SnapKit.xcframework; sourceTree = "<group>"; };
+		FD689813283B401D003D434C /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		FD689815283B4031003D434C /* AddEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,11 +122,10 @@
 			children = (
 				FD0B73C5283A993F00B6B7E8 /* AppDelegate.swift */,
 				FD0B73C7283A993F00B6B7E8 /* SceneDelegate.swift */,
-				FD0B73C9283A993F00B6B7E8 /* ViewController.swift */,
 				FD0B73D1283A993F00B6B7E8 /* Assets.xcassets */,
-				FD0B73D3283A993F00B6B7E8 /* LaunchScreen.storyboard */,
 				FD0B73D6283A993F00B6B7E8 /* Info.plist */,
-				FD0B73CE283A993F00B6B7E8 /* LightInstagram.xcdatamodeld */,
+				FD68980F283B36CF003D434C /* Model */,
+				FD689810283B36D6003D434C /* ViewCon */,
 			);
 			path = LightInstagram;
 			sourceTree = "<group>";
@@ -152,6 +153,24 @@
 				FD61B3E2283AA1E200B1C141 /* SnapKit.xcframework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FD68980F283B36CF003D434C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FD0B73CE283A993F00B6B7E8 /* LightInstagram.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FD689810283B36D6003D434C /* ViewCon */ = {
+			isa = PBXGroup;
+			children = (
+				FD0B73C9283A993F00B6B7E8 /* FeedViewController.swift */,
+				FD689813283B401D003D434C /* UserViewController.swift */,
+				FD689815283B4031003D434C /* AddEditViewController.swift */,
+			);
+			path = ViewCon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +278,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD0B73D5283A993F00B6B7E8 /* LaunchScreen.storyboard in Resources */,
 				FD0B73D2283A993F00B6B7E8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,7 +303,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD0B73CA283A993F00B6B7E8 /* ViewController.swift in Sources */,
+				FD0B73CA283A993F00B6B7E8 /* FeedViewController.swift in Sources */,
+				FD689816283B4031003D434C /* AddEditViewController.swift in Sources */,
+				FD689814283B401D003D434C /* UserViewController.swift in Sources */,
 				FD0B73D0283A993F00B6B7E8 /* LightInstagram.xcdatamodeld in Sources */,
 				FD0B73C6283A993F00B6B7E8 /* AppDelegate.swift in Sources */,
 				FD0B73C8283A993F00B6B7E8 /* SceneDelegate.swift in Sources */,
@@ -323,17 +343,6 @@
 			targetProxy = FD0B73E6283A993F00B6B7E8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		FD0B73D3283A993F00B6B7E8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FD0B73D4283A993F00B6B7E8 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FD0B73ED283A993F00B6B7E8 /* Debug */ = {
