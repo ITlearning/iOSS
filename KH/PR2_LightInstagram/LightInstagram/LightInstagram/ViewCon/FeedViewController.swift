@@ -58,9 +58,10 @@ class FeedViewController: UIViewController {
         mainFeedButton.backgroundColor = .blue
         self.view.addSubview(mainFeedButton)
         mainFeedButton.snp.makeConstraints { make in
-            make.left.equalTo(self.view).offset(80)
+            make.left.equalTo(self.view).offset(60)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
-            make.width.height.equalTo(30)
+            make.width.equalTo(50)
+            make.height.equalTo(30)
         }
         
         // feedAddButton
@@ -69,16 +70,21 @@ class FeedViewController: UIViewController {
         feedAddButton.snp.makeConstraints { make in
             make.centerX.equalTo(self.view)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
-            make.width.height.equalTo(30)
+            make.width.equalTo(50)
+            make.height.equalTo(30)
         }
+        
+        // tab to move feed Add/Edit View
+        
         
         // userProfileButton
         userProfileButton.backgroundColor = .green
         self.view.addSubview(userProfileButton)
         userProfileButton.snp.makeConstraints { make in
-            make.right.equalTo(self.view).offset(-80)
+            make.right.equalTo(self.view).offset(-60)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
-            make.width.height.equalTo(30)
+            make.width.equalTo(50)
+            make.height.equalTo(30)
         }
         
         
