@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F59EDB8E285D94930068E5CD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F59EDB8D285D94930068E5CD /* SnapKit */; };
 		FD0B73C6283A993F00B6B7E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73C5283A993F00B6B7E8 /* AppDelegate.swift */; };
 		FD0B73C8283A993F00B6B7E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73C7283A993F00B6B7E8 /* SceneDelegate.swift */; };
 		FD0B73CA283A993F00B6B7E8 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73C9283A993F00B6B7E8 /* FeedViewController.swift */; };
@@ -15,8 +16,6 @@
 		FD0B73E0283A993F00B6B7E8 /* LightInstagramTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73DF283A993F00B6B7E8 /* LightInstagramTests.swift */; };
 		FD0B73EA283A993F00B6B7E8 /* LightInstagramUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73E9283A993F00B6B7E8 /* LightInstagramUITests.swift */; };
 		FD0B73EC283A993F00B6B7E8 /* LightInstagramUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0B73EB283A993F00B6B7E8 /* LightInstagramUITestsLaunchTests.swift */; };
-		FD61B3E3283AA1E200B1C141 /* SnapKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD61B3E2283AA1E200B1C141 /* SnapKit.xcframework */; };
-		FD61B3E4283AA1E200B1C141 /* SnapKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FD61B3E2283AA1E200B1C141 /* SnapKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FD689814283B401D003D434C /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD689813283B401D003D434C /* UserViewController.swift */; };
 		FD689816283B4031003D434C /* AddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD689815283B4031003D434C /* AddEditViewController.swift */; };
 /* End PBXBuildFile section */
@@ -37,20 +36,6 @@
 			remoteInfo = LightInstagram;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		FD61B3E5283AA1E200B1C141 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				FD61B3E4283AA1E200B1C141 /* SnapKit.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FD0B73C2283A993F00B6B7E8 /* LightInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD61B3E3283AA1E200B1C141 /* SnapKit.xcframework in Frameworks */,
+				F59EDB8E285D94930068E5CD /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,13 +168,15 @@
 				FD0B73BE283A993F00B6B7E8 /* Sources */,
 				FD0B73BF283A993F00B6B7E8 /* Frameworks */,
 				FD0B73C0283A993F00B6B7E8 /* Resources */,
-				FD61B3E5283AA1E200B1C141 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = LightInstagram;
+			packageProductDependencies = (
+				F59EDB8D285D94930068E5CD /* SnapKit */,
+			);
 			productName = LightInstagram;
 			productReference = FD0B73C2283A993F00B6B7E8 /* LightInstagram.app */;
 			productType = "com.apple.product-type.application";
@@ -262,6 +249,9 @@
 				Base,
 			);
 			mainGroup = FD0B73B9283A993F00B6B7E8;
+			packageReferences = (
+				F59EDB8C285D94930068E5CD /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = FD0B73C3283A993F00B6B7E8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -466,6 +456,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LightInstagram/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -492,6 +483,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZMXTCSPNUZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LightInstagram/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -623,6 +615,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F59EDB8C285D94930068E5CD /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F59EDB8D285D94930068E5CD /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F59EDB8C285D94930068E5CD /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		FD0B73CE283A993F00B6B7E8 /* LightInstagram.xcdatamodeld */ = {
