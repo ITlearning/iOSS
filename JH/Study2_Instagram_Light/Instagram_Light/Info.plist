@@ -19,5 +19,9 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>camera permissions for taking photos and videos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Album permissions to save videos</string>
 </dict>
 </plist>
