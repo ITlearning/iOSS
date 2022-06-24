@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD5B9F8C2864F2220056205E /* Feed+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5B9F8A2864F2220056205E /* Feed+CoreDataClass.swift */; };
+		FD5B9F8D2864F2220056205E /* Feed+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5B9F8B2864F2220056205E /* Feed+CoreDataProperties.swift */; };
+		FD5B9F8F28659F340056205E /* UserProfileViewCollectionCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5B9F8E28659F340056205E /* UserProfileViewCollectionCustomCell.swift */; };
 		FDBA213F2862014E004DD205 /* MainViewTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBA213E2862014E004DD205 /* MainViewTableViewModel.swift */; };
 		FDBA2141286201E0004DD205 /* UserProfileViewCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBA2140286201E0004DD205 /* UserProfileViewCollectionViewModel.swift */; };
 		FDBA214328620324004DD205 /* MainViewTableCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBA214228620324004DD205 /* MainViewTableCustomCell.swift */; };
@@ -24,6 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD5B9F8A2864F2220056205E /* Feed+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataClass.swift"; sourceTree = "<group>"; };
+		FD5B9F8B2864F2220056205E /* Feed+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FD5B9F8E28659F340056205E /* UserProfileViewCollectionCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewCollectionCustomCell.swift; sourceTree = "<group>"; };
 		FDBA213E2862014E004DD205 /* MainViewTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTableViewModel.swift; sourceTree = "<group>"; };
 		FDBA2140286201E0004DD205 /* UserProfileViewCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewCollectionViewModel.swift; sourceTree = "<group>"; };
 		FDBA214228620324004DD205 /* MainViewTableCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTableCustomCell.swift; sourceTree = "<group>"; };
@@ -99,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				FDBA214228620324004DD205 /* MainViewTableCustomCell.swift */,
+				FD5B9F8E28659F340056205E /* UserProfileViewCollectionCustomCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -107,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				FDF139F02860B9F900C542E0 /* LightStagram.xcdatamodeld */,
+				FD5B9F8A2864F2220056205E /* Feed+CoreDataClass.swift */,
+				FD5B9F8B2864F2220056205E /* Feed+CoreDataProperties.swift */,
 				FDBA213E2862014E004DD205 /* MainViewTableViewModel.swift */,
 				FDBA2140286201E0004DD205 /* UserProfileViewCollectionViewModel.swift */,
 				FDC1D32F2863659D00D46D7C /* CoreDataManager.swift */,
@@ -193,12 +202,15 @@
 				FDF139F22860B9F900C542E0 /* LightStagram.xcdatamodeld in Sources */,
 				FDF13A042860BAB200C542E0 /* UserProfileViewController.swift in Sources */,
 				FDBA2141286201E0004DD205 /* UserProfileViewCollectionViewModel.swift in Sources */,
+				FD5B9F8C2864F2220056205E /* Feed+CoreDataClass.swift in Sources */,
 				FDF13A022860BAAB00C542E0 /* AddEditViewController.swift in Sources */,
 				FDBA213F2862014E004DD205 /* MainViewTableViewModel.swift in Sources */,
+				FD5B9F8F28659F340056205E /* UserProfileViewCollectionCustomCell.swift in Sources */,
 				FDF139EC2860B9F900C542E0 /* MainViewController.swift in Sources */,
 				FDF13A0A2860BEA800C542E0 /* WindowTabBarViewController.swift in Sources */,
 				FDF139E82860B9F900C542E0 /* AppDelegate.swift in Sources */,
 				FDF139EA2860B9F900C542E0 /* SceneDelegate.swift in Sources */,
+				FD5B9F8D2864F2220056205E /* Feed+CoreDataProperties.swift in Sources */,
 				FDBA214328620324004DD205 /* MainViewTableCustomCell.swift in Sources */,
 				FDC1D3302863659D00D46D7C /* CoreDataManager.swift in Sources */,
 			);

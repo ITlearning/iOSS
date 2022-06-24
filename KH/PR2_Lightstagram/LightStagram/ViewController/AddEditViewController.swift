@@ -155,12 +155,12 @@ class AddEditViewController: UIViewController {
     // 새로운 Feed를 CoreData에 저장하는 버튼
     @objc func pressSaveButtonTest() {
         if noFeedImage() == true && noFeedText() == true {
-//        saveToCoreData()
+        saveToCoreData()
         clearAddEditView()
         }
     }
     
-    // 업로드할 사진이 골라지지 않았으면 실행
+    // 업로드할 사진이 선택되지 않았으면 실행
     func noFeedImage() -> Bool {
         if newFeedImageView.image == nil {
             let noImageAlert = UIAlertController(title: "사진이 없습니다!", message: "사진을 선택해주세요!", preferredStyle: .alert)
@@ -190,6 +190,7 @@ class AddEditViewController: UIViewController {
     func makeLikeCountString() -> String {
         let randLikeCount = Int.random(in: 0..<1000)
         let likeCountString = "\(randLikeCount)명이 좋아합니다."
+        print(likeCountString)
         return likeCountString
     }
     
@@ -199,23 +200,39 @@ class AddEditViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM월 dd일 hh:mm"
         let dateString = dateFormatter.string(from: nowDate)
+        print(dateString)
         return dateString
     }
     
     // 저장 시 정보들을 CoreData에 저장하는 함수
     func saveToCoreData() {
         let newFeed = TableViewFeed(feedImage: newFeedImageView.image, feedText: newFeedTextView.text, likeCount: makeLikeCountString(), uploadDate: makeUploadDateString())
+        let newFeedImageData = newFeed.feedImage?.jpegData(compressionQuality: 1)
+        CoreDataManager.shared.saveFeed(feedImage: newFeedImageData!, feedText: newFeed.feedText ?? "", likeCount: newFeed.likeCount ?? "", uploadDate: newFeed.uploadDate ?? "")
+        let mainViewController = MainViewController()
+        mainViewController.refreshTableView()
     }
     
     // AddEditView를 초기화하는 함수
     func clearAddEditView() {
         newFeedImageView.image = nil
         newFeedTextView.text = nil
+        textViewDidEndEditing(newFeedTextView)
         newFeedImageIfNilLabel.text = "사진을 선택해주세요!"
-        let clearAlert = UIAlertController(title: "저장되었습니다!", message: nil, preferredStyle: .alert)
-        let checkButton = UIAlertAction(title: "OK", style: .default)
-        clearAlert.addAction(checkButton)
-        present(clearAlert, animated: true, completion: nil)
+        
+//        let clearAlert = UIAlertController(title: "저장되었습니다!", message: nil, preferredStyle: .alert)
+//        let checkButton = UIAlertAction(title: "OK", style: .default)
+//        clearAlert.addAction(checkButton)
+//        present(clearAlert, animated: true, completion: nil)
+        
+        let SuccessAlert = UIAlertController(title: "등록성공", message: "등록이 성공되었습니다.\n등록 뷰를 닫으시겠습니까?", preferredStyle: .alert)
+        let OKButton = UIAlertAction(title: "닫기", style: .default)
+        let dismissButton = UIAlertAction(title: "아니오", style: .default)
+        SuccessAlert.addAction(dismissButton)
+        SuccessAlert.addAction(OKButton)
+        present(SuccessAlert, animated: true, completion: nil)
+        
+        view.endEditing(true)
     }
     
     // 화면을 터치하면 키보드가 내려가는 함수

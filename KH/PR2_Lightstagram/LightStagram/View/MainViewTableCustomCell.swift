@@ -21,10 +21,6 @@ class MainViewTableCustomCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getFeed() {
-        
-    }
-    
     // User image
     let userProfileImage: UIImageView = {
         let userProfileImage = UIImageView()
@@ -49,8 +45,7 @@ class MainViewTableCustomCell: UITableViewCell {
     // 피드의 이미지(newFeedImageView)
     var feedImageView: UIImageView = {
         let feedImageView = UIImageView()
-        feedImageView.image = UIImage(named: "UserImage")
-        feedImageView.contentMode = .scaleAspectFit
+        feedImageView.contentMode = .scaleToFill
         feedImageView.clipsToBounds = true
         return feedImageView
     }()
@@ -58,7 +53,6 @@ class MainViewTableCustomCell: UITableViewCell {
     // 피드의 좋아요 수(likeCount)
     let feedLikeCount: UILabel = {
         let feedLikeCount = UILabel()
-        feedLikeCount.text = "Test"
         feedLikeCount.font = UIFont.systemFont(ofSize: 15)
         return feedLikeCount
     }()
@@ -74,7 +68,6 @@ class MainViewTableCustomCell: UITableViewCell {
     // 피드의 설명글(newFeedTextView)
     let feedText: UILabel = {
         let feedText = UILabel()
-        feedText.text = "Test"
         feedText.font = UIFont.systemFont(ofSize: 15)
         return feedText
     }()
@@ -82,7 +75,6 @@ class MainViewTableCustomCell: UITableViewCell {
     // 피드의 업로드 날짜(uploadDate) - 테스트 중
     let feedUploadDate: UILabel = {
         let feedUploadDate = UILabel()
-        feedUploadDate.text = "Test"
         feedUploadDate.textColor = .lightGray
         feedUploadDate.font = UIFont.systemFont(ofSize: 12)
         return feedUploadDate

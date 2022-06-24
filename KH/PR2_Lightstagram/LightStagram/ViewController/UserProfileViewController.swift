@@ -9,13 +9,25 @@ import UIKit
 import SnapKit
 
 class UserProfileViewController: UIViewController {
+    
+    let feedCollectionView: UICollectionView = {
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(UserProfileViewCollectionCustomCell.self, forCellWithReuseIdentifier: UserProfileViewCollectionCustomCell.collectionViewCellIdentifier)
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
+    let peopleButtonLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        showUserProfileViewLayout()
         
+        collectionViewFunctions()
+        showUserProfileViewLayout()
     }
     
     // userProfileView의 화면 구성
@@ -47,7 +59,7 @@ class UserProfileViewController: UIViewController {
         
         // 게시물 수
         let feedCountLabel = UILabel()
-        feedCountLabel.text = "1K"
+        feedCountLabel.text = String(CoreDataManager.shared.getFeeds().count)
         view.addSubview(feedCountLabel)
         feedCountLabel.snp.makeConstraints { make in
             make.left.equalTo(userProfileImage.snp.right).offset(45)
@@ -186,7 +198,6 @@ class UserProfileViewController: UIViewController {
         peopleButton.addTarget(self, action: #selector(pressNotFinishButton), for: .allEvents)
         
         // People 버튼 라벨
-        let peopleButtonLabel = UILabel()
         peopleButtonLabel.text = "People"
         peopleButtonLabel.textColor = .systemBlue
         peopleButtonLabel.font = UIFont.systemFont(ofSize: 11)
@@ -196,6 +207,29 @@ class UserProfileViewController: UIViewController {
             make.centerX.equalTo(peopleButton.snp.centerX)
         }
         
+        showCollectionView()
+    }
+    
+    // show collecionView
+    func showCollectionView() {
+        view.addSubview(feedCollectionView)
+        feedCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(peopleButtonLabel.snp.bottom).offset(10)
+            make.width.equalTo(view)
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            
+        }
+        
+        let noSpacing = UICollectionViewFlowLayout()
+        noSpacing.minimumLineSpacing = 0
+        noSpacing.minimumInteritemSpacing = 0
+        feedCollectionView.setCollectionViewLayout(noSpacing, animated: true)
+    }
+    
+    func collectionViewFunctions() {
+        feedCollectionView.delegate = self
+        feedCollectionView.dataSource = self
+        feedCollectionView.reloadData()
     }
     
     // '준비 중인 기능'에 대한 함수
@@ -207,4 +241,23 @@ class UserProfileViewController: UIViewController {
         present(profileEditButtomAlert, animated: true, completion: nil)
     }
 
+}
+
+extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width/3, height: view.frame.width/3)
+    }
+        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return CoreDataManager.shared.getFeeds().count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let collectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: UserProfileViewCollectionCustomCell.collectionViewCellIdentifier, for: indexPath) as? UserProfileViewCollectionCustomCell else { return UICollectionViewCell() }
+        let newFeedForCollectionViewCell = CoreDataManager.shared.getFeeds()
+        
+        collectionViewCell.feedImage.image = UIImage(data: newFeedForCollectionViewCell[indexPath.row].feedImage!)
+        
+        return collectionViewCell
+    }
 }
