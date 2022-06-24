@@ -7,27 +7,17 @@
 
 import UIKit
 import SnapKit
-import SwiftUI
 import AVFoundation
 import Photos
 
-@available(iOS 13.0.0, *)
-struct ViewPreview: PreviewProvider {
-    static var previews: some View {
-        ViewControllerRepresentable()
-    }
+public extension UIColor {
+    static let textColor = UIColor(named: "TextColor")
+    static let backgroundColor = UIColor(named: "BackgroundColor")
+    static let subTextColor = UIColor(named: "SubTextColorOne")
 }
 
-struct ViewControllerRepresentable:UIViewControllerRepresentable {
-    typealias UIViewControllerType = MainViewController
-    
-    func makeUIViewController(context: Context) -> MainViewController {
-        return MainViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: MainViewController, context: Context) {
-    }
-}
+public var editJudgeNumber = 0
+public var indexPathrowForEdit = 0
 
 class MainViewController: UIViewController {
 
@@ -38,27 +28,24 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
-        print("ViewController의 view가 화면에 나타남")
-        if (self.tableView.contentSize.height > self.tableView.frame.size.height) {
-            let offset = CGPoint(x: CGFloat(0), y: CGFloat(self.tableView.contentSize.height - self.tableView.frame.size.height))
-            self.tableView.setContentOffset(offset, animated: true)
-        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.separatorStyle = .none
         
         checkCameraPermission()
         checkAlbumPermission()
         configureLayout()
+        getAllUsers()
     }
     
     func configureLayout() {
         let mainTitleText = UILabel()
         
-        view.backgroundColor = .white
-        
         mainTitleText.text = "CloneStagram"
+        mainTitleText.textColor = UIColor.textColor
         mainTitleText.font = UIFont.boldSystemFont(ofSize: 30)
         mainTitleText.translatesAutoresizingMaskIntoConstraints = false
         
@@ -72,16 +59,44 @@ class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MainViewCustomCell.self, forCellReuseIdentifier: "MainViewCustomCell")
+        tableView.backgroundColor = UIColor.backgroundColor
         
         view.addSubview(tableView)
-        
+
         tableView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(100)
-            make.leading.equalToSuperview().offset(-26)
-            make.right.bottom.equalToSuperview().offset(0)
+            make.leading.right.bottom.equalToSuperview()
         }
     }
+    
+    fileprivate func getAllUsers() {
+        let mainData: [MainDataEntity] = CoreDataManager.shared.getUsers()
 
+        if mainData.count != 0 {
+            for i in 0...mainData.count - 1 {
+                if (mainData[i].likeText == nil) {
+                    print("fail")
+                } else {
+                    let mainDataImageView = UIImageView()
+                    let mainDataImage = UIImage(data: mainData[i].mainImage!)
+                    mainDataImageView.image = mainDataImage
+                    
+                    let item: InstagramData = InstagramData(mainImage: mainDataImageView, mainText: mainData[i].mainText, likeText: mainData[i].likeText, dateText: mainData[i].dateText)
+                    
+                    let userItem: UserData = UserData(mainImage: mainDataImageView)
+                    list.append(item)
+                    userList.append(userItem)
+                }
+            }
+        } else {
+            print("is zero..")
+        }
+    }
+    
+    fileprivate func deleteData(_ id: String) {
+        CoreDataManager.shared.deleteData(id: id)
+    }
+    
     func checkAlbumPermission(){
             PHPhotoLibrary.requestAuthorization( { status in
                 switch status {
@@ -110,7 +125,42 @@ class MainViewController: UIViewController {
                }
            })
     }
+    
+    @objc func editButtonAction(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: tableView)
+        let myViewController = AddViewController()
+        guard let indexPath = tableView.indexPathForRow(at: point) else { return }
+        
+        editJudgeNumber = 1
+        indexPathrowForEdit = indexPath.row
+        
+        myViewController.modalPresentationStyle = .fullScreen
+        present(myViewController, animated: true, completion: nil)
+    }
 
+    @objc func deleteButtonAction(_ sender: UIButton) {
+        let mainData: [MainDataEntity] = CoreDataManager.shared.getUsers()
+        let point = sender.convert(CGPoint.zero, to: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: point) else { return }
+        
+        let deletePopup = UIAlertController(title: "주의", message: "한번 삭제한 데이터는 복구가 불가능합니다.\n정말로 삭제하시겠습니까?", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default) { action in
+            list.remove(at: indexPath.row) // 3
+            userList.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.deleteData(mainData[indexPath.row].dateText!)
+        }
+        
+        let deleteCancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.default) { action in
+            return
+        }
+        
+        deletePopup.addAction(deleteAction)
+        deletePopup.addAction(deleteCancelAction)
+
+        present(deletePopup, animated: true, completion: nil)
+    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
@@ -123,28 +173,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewCustomCell", for: indexPath) as? MainViewCustomCell else { return UITableViewCell() }
         
-        cell.mainText.text = list[indexPath.row].mainTexts
-        cell.likeText.text = list[indexPath.row].like
+        cell.mainText.text = list[indexPath.row].mainText
+        cell.likeNumberText.text = list[indexPath.row].likeText
         cell.mainViewImage.image = list[indexPath.row].mainImage?.image
-        cell.dateText.text = list[indexPath.row].upLoadDate
+        cell.dateText.text = list[indexPath.row].dateText
         
         cell.selectionStyle = .none
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if (editingStyle == .delete) {
-            
-            list.remove(at: indexPath.row)
-            userList.remove(at: indexPath.row)
-            tableView.reloadData()
-        }
     }
 }

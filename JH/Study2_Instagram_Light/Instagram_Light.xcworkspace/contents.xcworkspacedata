@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Entity+CoreDataClass.swift">
+      location = "group:MainDataEntity+CoreDataClass.swift">
    </FileRef>
    <FileRef
-      location = "group:Entity+CoreDataProperties.swift">
+      location = "group:MainDataEntity+CoreDataProperties.swift">
    </FileRef>
    <FileRef
       location = "group:Instagram_Light.xcodeproj">

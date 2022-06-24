@@ -20,8 +20,12 @@
 		FA35962B283E9C9900A8000B /* Instagram_LightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA35962A283E9C9900A8000B /* Instagram_LightTests.swift */; };
 		FA359635283E9C9900A8000B /* Instagram_LightUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA359634283E9C9900A8000B /* Instagram_LightUITests.swift */; };
 		FA359637283E9C9900A8000B /* Instagram_LightUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA359636283E9C9900A8000B /* Instagram_LightUITestsLaunchTests.swift */; };
+		FA40E1A32864D0AA00E80ED9 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA40E1A22864D0AA00E80ED9 /* CustomTabBarController.swift */; };
+		FA7006FB2860DB4C0091222A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7006FA2860DB4C0091222A /* CoreDataManager.swift */; };
+		FA9722F228651CCF00805DB3 /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9722F128651CCF00805DB3 /* SubViewController.swift */; };
+		FA9722F428651DDD00805DB3 /* SubViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9722F328651DDD00805DB3 /* SubViewCustomCell.swift */; };
 		FA9BFCFD28493DC600911B77 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9BFCFC28493DC600911B77 /* MainModel.swift */; };
-		FAA8401D285C74CA0032FDC6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA8401B285C74CA0032FDC6 /* Model.xcdatamodeld */; };
+		FAA8401D285C74CA0032FDC6 /* MainDataEntity.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAA8401B285C74CA0032FDC6 /* MainDataEntity.xcdatamodeld */; };
 		FAA84060285CBF6D0032FDC6 /* UserViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA8405F285CBF6D0032FDC6 /* UserViewCustomCell.swift */; };
 		FABD29D9284A16A600534201 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABD29D8284A16A600534201 /* UserViewController.swift */; };
 		FABD29DB284A16C100534201 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABD29DA284A16C100534201 /* AddViewController.swift */; };
@@ -67,6 +71,10 @@
 		FA359630283E9C9900A8000B /* Instagram_LightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Instagram_LightUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA359634283E9C9900A8000B /* Instagram_LightUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instagram_LightUITests.swift; sourceTree = "<group>"; };
 		FA359636283E9C9900A8000B /* Instagram_LightUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instagram_LightUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FA40E1A22864D0AA00E80ED9 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		FA7006FA2860DB4C0091222A /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		FA9722F128651CCF00805DB3 /* SubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
+		FA9722F328651DDD00805DB3 /* SubViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewCustomCell.swift; sourceTree = "<group>"; };
 		FA9BFCFC28493DC600911B77 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		FAA8401C285C74CA0032FDC6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		FAA8405F285CBF6D0032FDC6 /* UserViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewCustomCell.swift; sourceTree = "<group>"; };
@@ -151,7 +159,8 @@
 		FA359612283E9C9800A8000B /* Instagram_Light */ = {
 			isa = PBXGroup;
 			children = (
-				FAA8401B285C74CA0032FDC6 /* Model.xcdatamodeld */,
+				FA7006F92860DB370091222A /* CoreDataManager */,
+				FAA8401B285C74CA0032FDC6 /* MainDataEntity.xcdatamodeld */,
 				FA9BFD0128493EC000911B77 /* View */,
 				FA9BFCFF28493E9C00911B77 /* ViewController */,
 				FA9BFCFE28493E8C00911B77 /* Model */,
@@ -181,6 +190,14 @@
 			path = Instagram_LightUITests;
 			sourceTree = "<group>";
 		};
+		FA7006F92860DB370091222A /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				FA7006FA2860DB4C0091222A /* CoreDataManager.swift */,
+			);
+			path = CoreDataManager;
+			sourceTree = "<group>";
+		};
 		FA9BFCFE28493E8C00911B77 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +213,8 @@
 				FA359617283E9C9800A8000B /* MainViewController.swift */,
 				FABD29D8284A16A600534201 /* UserViewController.swift */,
 				FABD29DA284A16C100534201 /* AddViewController.swift */,
+				FA40E1A22864D0AA00E80ED9 /* CustomTabBarController.swift */,
+				FA9722F128651CCF00805DB3 /* SubViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -205,6 +224,7 @@
 			children = (
 				FA2D9C66285B776C003754AB /* MainViewCustomCell.swift */,
 				FAA8405F285CBF6D0032FDC6 /* UserViewCustomCell.swift */,
+				FA9722F328651DDD00805DB3 /* SubViewCustomCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -447,16 +467,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9722F428651DDD00805DB3 /* SubViewCustomCell.swift in Sources */,
 				FA359618283E9C9800A8000B /* MainViewController.swift in Sources */,
 				FABD29D9284A16A600534201 /* UserViewController.swift in Sources */,
+				FA40E1A32864D0AA00E80ED9 /* CustomTabBarController.swift in Sources */,
 				FA27DF77285CC0E300599CBF /* UserModel.swift in Sources */,
 				FAA84060285CBF6D0032FDC6 /* UserViewCustomCell.swift in Sources */,
 				FABD29DB284A16C100534201 /* AddViewController.swift in Sources */,
-				FAA8401D285C74CA0032FDC6 /* Model.xcdatamodeld in Sources */,
+				FAA8401D285C74CA0032FDC6 /* MainDataEntity.xcdatamodeld in Sources */,
+				FA9722F228651CCF00805DB3 /* SubViewController.swift in Sources */,
 				FA359614283E9C9800A8000B /* AppDelegate.swift in Sources */,
 				FA359616283E9C9800A8000B /* SceneDelegate.swift in Sources */,
 				FA2D9C67285B776C003754AB /* MainViewCustomCell.swift in Sources */,
 				FA9BFCFD28493DC600911B77 /* MainModel.swift in Sources */,
+				FA7006FB2860DB4C0091222A /* CoreDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,13 +820,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		FAA8401B285C74CA0032FDC6 /* Model.xcdatamodeld */ = {
+		FAA8401B285C74CA0032FDC6 /* MainDataEntity.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				FAA8401C285C74CA0032FDC6 /* Model.xcdatamodel */,
 			);
 			currentVersion = FAA8401C285C74CA0032FDC6 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			path = MainDataEntity.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
