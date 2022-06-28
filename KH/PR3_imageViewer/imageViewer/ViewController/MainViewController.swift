@@ -23,9 +23,8 @@ class MainViewController: UIViewController {
     // 이미지들을 보여주는 컬렉션 뷰
     let multipleImageView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 20
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(MultipleImageViewCell.self, forCellWithReuseIdentifier: MultipleImageViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,9 +32,6 @@ class MainViewController: UIViewController {
         
         return collectionView
     }()
-    
-    // PHPicker로 선택한 이미지들을 받기 위한 변수
-    var itemProviders = [NSItemProvider]()
     
     // '사진 선택하기' 버튼
     let selectButton: UIButton = {
@@ -53,11 +49,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        showMainView()
+        MainViewLayout()
     }
 
     // Main View의 레이아웃
-    func showMainView() {
+    func MainViewLayout() {
         multipleImageView.delegate = self
         multipleImageView.dataSource = self
         
@@ -87,7 +83,7 @@ class MainViewController: UIViewController {
     // PHPicker를 띄우는 함수
     @objc func showPhotoLibrary() {
         var configuration = PHPickerConfiguration()
-        // 선택할 수 있는 이미지 갯수 무한
+        // 선택할 수 있는 이미지 갯수 최댓값
         configuration.selectionLimit = 0
         // 선택할 수 있는 item을 image 형식으로 제한(LivePhoto, Video도 있음)
         configuration.filter = .images
@@ -109,8 +105,8 @@ extension MainViewController: PHPickerViewControllerDelegate {
             collectionViewImages.removeAll()
         }
         
-        // picker 화면을 없앰
-        picker.dismiss(animated: true, completion: nil)
+        // PHPicker로 선택한 이미지들을 받기 위한 변수
+        var itemProviders = [NSItemProvider]()
         
         // 가져온 사진들을 collectionViewImages 배열에 저장
         itemProviders = results.map(\.itemProvider)
@@ -125,17 +121,27 @@ extension MainViewController: PHPickerViewControllerDelegate {
                 }
             }
         }
+        
+        // picker 화면을 없앰
+        picker.dismiss(animated: true, completion: nil)
     }
     
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 30, height: view.frame.height)
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("\n", collectionViewImages.count, "\n")
         return collectionViewImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width - 70, height: view.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -143,5 +149,12 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         imageCell.setImage(getImage: collectionViewImages[indexPath.row])
         
         return imageCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectionViewController = SelectImageViewController()
+        selectionViewController.modalTransitionStyle = .coverVertical
+        selectionViewController.modalPresentationStyle = .fullScreen
+        present(selectionViewController, animated: true, completion: nil)
     }
 }

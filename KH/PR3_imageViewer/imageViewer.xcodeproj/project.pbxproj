@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD17953C286B179C0023D16A /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD17953B286B179C0023D16A /* SelectImageViewController.swift */; };
 		FD489312286ACC5100A9CB43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD489311286ACC5100A9CB43 /* AppDelegate.swift */; };
 		FD489314286ACC5100A9CB43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD489313286ACC5100A9CB43 /* SceneDelegate.swift */; };
 		FD489316286ACC5100A9CB43 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD489315286ACC5100A9CB43 /* MainViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD17953B286B179C0023D16A /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 		FD48930E286ACC5100A9CB43 /* imageViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = imageViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD489311286ACC5100A9CB43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD489313286ACC5100A9CB43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				FD489315286ACC5100A9CB43 /* MainViewController.swift */,
+				FD17953B286B179C0023D16A /* SelectImageViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				FDABB59F286AD3D5006E7A97 /* MultipleImageViewCell.swift in Sources */,
 				FD489316286ACC5100A9CB43 /* MainViewController.swift in Sources */,
 				FD48931C286ACC5100A9CB43 /* imageViewer.xcdatamodeld in Sources */,
+				FD17953C286B179C0023D16A /* SelectImageViewController.swift in Sources */,
 				FD489312286ACC5100A9CB43 /* AppDelegate.swift in Sources */,
 				FD489314286ACC5100A9CB43 /* SceneDelegate.swift in Sources */,
 				FDABB5A1286ADA58006E7A97 /* ImagesModel.swift in Sources */,

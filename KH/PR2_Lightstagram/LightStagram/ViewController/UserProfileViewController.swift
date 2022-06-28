@@ -217,7 +217,6 @@ class UserProfileViewController: UIViewController {
             make.top.equalTo(peopleButtonLabel.snp.bottom).offset(10)
             make.width.equalTo(view)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
-            
         }
         
         let noSpacing = UICollectionViewFlowLayout()
@@ -244,6 +243,7 @@ class UserProfileViewController: UIViewController {
 }
 
 extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width/3, height: view.frame.width/3)
     }
@@ -260,4 +260,5 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout, UIColle
         
         return collectionViewCell
     }
+    
 }

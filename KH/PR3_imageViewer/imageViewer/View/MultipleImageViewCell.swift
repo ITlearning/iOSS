@@ -14,7 +14,8 @@ class MultipleImageViewCell: UICollectionViewCell {
     let selectedImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
         
         return image
     }()
@@ -37,8 +38,9 @@ class MultipleImageViewCell: UICollectionViewCell {
     func collectionViewCellLayout() {
         contentView.addSubview(selectedImage)
         selectedImage.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.height.equalToSuperview()
+            make.center.equalTo(contentView)
+            make.width.equalTo(contentView)
+            make.height.equalTo(contentView)
         }
     }
     

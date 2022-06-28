@@ -65,9 +65,7 @@ class CoreDataManager {
         fetchRequest.predicate = NSPredicate(format: "feedText = %@", String(feedText))
         return fetchRequest
     }
- 
-    
-    
+
 //    // CoreData에 정보를 추가하는 작업
 //    func insertFeedToCoreData(_ feed: TableViewFeed) {
 //        if let context = context, let entity: NSEntityDescription = NSEntityDescription.entity(forEntityName: "LightStagram", in: context) {
