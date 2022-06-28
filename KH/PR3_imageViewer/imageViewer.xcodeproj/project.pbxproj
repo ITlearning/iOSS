@@ -14,6 +14,8 @@
 		FD48931E286ACC5200A9CB43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD48931D286ACC5200A9CB43 /* Assets.xcassets */; };
 		FD489321286ACC5200A9CB43 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD48931F286ACC5200A9CB43 /* LaunchScreen.storyboard */; };
 		FD48932D286ACE7600A9CB43 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FD48932C286ACE7600A9CB43 /* SnapKit */; };
+		FDABB59F286AD3D5006E7A97 /* MultipleImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABB59E286AD3D5006E7A97 /* MultipleImageViewCell.swift */; };
+		FDABB5A1286ADA58006E7A97 /* ImagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABB5A0286ADA58006E7A97 /* ImagesModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		FD48931D286ACC5200A9CB43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD489320286ACC5200A9CB43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD489322286ACC5200A9CB43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDABB59E286AD3D5006E7A97 /* MultipleImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleImageViewCell.swift; sourceTree = "<group>"; };
+		FDABB5A0286ADA58006E7A97 /* ImagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 		FD489329286ACC8600A9CB43 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FDABB59E286AD3D5006E7A97 /* MultipleImageViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -89,6 +94,7 @@
 		FD48932A286ACC8900A9CB43 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FDABB5A0286ADA58006E7A97 /* ImagesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,10 +175,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDABB59F286AD3D5006E7A97 /* MultipleImageViewCell.swift in Sources */,
 				FD489316286ACC5100A9CB43 /* MainViewController.swift in Sources */,
 				FD48931C286ACC5100A9CB43 /* imageViewer.xcdatamodeld in Sources */,
 				FD489312286ACC5100A9CB43 /* AppDelegate.swift in Sources */,
 				FD489314286ACC5100A9CB43 /* SceneDelegate.swift in Sources */,
+				FDABB5A1286ADA58006E7A97 /* ImagesModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
