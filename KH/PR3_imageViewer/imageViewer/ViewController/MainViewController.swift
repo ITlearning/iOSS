@@ -24,10 +24,11 @@ class MainViewController: UIViewController {
     let multipleImageView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(MultipleImageViewCell.self, forCellWithReuseIdentifier: MultipleImageViewCell.identifier)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray5
         
         return collectionView
@@ -55,7 +56,11 @@ class MainViewController: UIViewController {
         showMainView()
     }
 
+    // Main View의 레이아웃
     func showMainView() {
+        multipleImageView.delegate = self
+        multipleImageView.dataSource = self
+        
         view.addSubview(imageViewerLabel)
         view.addSubview(multipleImageView)
         view.addSubview(selectButton)
@@ -68,7 +73,7 @@ class MainViewController: UIViewController {
         multipleImageView.snp.makeConstraints { make in
             make.center.equalTo(view)
             make.width.equalTo(view)
-            make.height.equalTo(multipleImageView.snp.width)
+            make.height.equalTo(((view.frame.width)/16)*9)
         }
         
         selectButton.snp.makeConstraints { make in
@@ -79,9 +84,12 @@ class MainViewController: UIViewController {
         selectButton.addTarget(self, action: #selector(showPhotoLibrary), for: .allEvents)
     }
     
+    // PHPicker를 띄우는 함수
     @objc func showPhotoLibrary() {
         var configuration = PHPickerConfiguration()
+        // 선택할 수 있는 이미지 갯수 무한
         configuration.selectionLimit = 0
+        // 선택할 수 있는 item을 image 형식으로 제한(LivePhoto, Video도 있음)
         configuration.filter = .images
         
         let picker = PHPickerViewController(configuration: configuration)
@@ -95,8 +103,16 @@ extension MainViewController: PHPickerViewControllerDelegate {
     
     // 선택을 완료하면 실행되는 함수(Add 클릭)
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        // 배열에 남은 이미지가 있다면 전부 비움
+        if collectionViewImages.count != 0 {
+            collectionViewImages.removeAll()
+        }
+        
+        // picker 화면을 없앰
         picker.dismiss(animated: true, completion: nil)
         
+        // 가져온 사진들을 collectionViewImages 배열에 저장
         itemProviders = results.map(\.itemProvider)
         for newImage in itemProviders {
             if newImage.canLoadObject(ofClass: UIImage.self) {
@@ -111,4 +127,21 @@ extension MainViewController: PHPickerViewControllerDelegate {
         }
     }
     
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width - 30, height: view.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return collectionViewImages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: MultipleImageViewCell.identifier, for: indexPath) as? MultipleImageViewCell else { return UICollectionViewCell() }
+        imageCell.setImage(getImage: collectionViewImages[indexPath.row])
+        
+        return imageCell
+    }
 }

@@ -29,10 +29,15 @@ class MultipleImageViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // UIImage를 받고 Collection View의 이미지에 할당
+    func setImage(getImage: UIImage) {
+        selectedImage.image = getImage
+    }
+    
     func collectionViewCellLayout() {
         contentView.addSubview(selectedImage)
         selectedImage.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.center.equalToSuperview()
             make.width.height.equalToSuperview()
         }
     }
