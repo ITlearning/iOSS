@@ -14,7 +14,7 @@ public let userName = "JaehyeokLim"
 
 class UserViewController: UIViewController {
     
-    private let userCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let userCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidAppear(_ animated: Bool) {
         userCollectionView.reloadData()
@@ -353,3 +353,5 @@ extension UserViewController: UICollectionViewDelegateFlowLayout {
             return 3
     }
 }
+
+
