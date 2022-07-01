@@ -38,7 +38,6 @@ class DetailViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         
         collectionView.backgroundColor = UIColor.black
         
