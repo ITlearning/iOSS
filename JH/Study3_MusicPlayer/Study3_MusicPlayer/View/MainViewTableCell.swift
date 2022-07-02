@@ -35,6 +35,11 @@ class MainViewTableCell: UITableViewCell {
         lyricsLabel.text = lyricsText
     }
     
+    func changelyricsTextColor(lyricsText: String, index: Int) {
+        lyricsLabel.text = lyricsText
+        lyricsLabel.textColor = .systemBlue
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraint()

@@ -29,6 +29,8 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     var repeatButtonStateNumber: Int = .zero
     var currentVolumeStateNumber = 0
     
+    var lyricsTextColorState = -1
+    
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -196,7 +198,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         }
 
         repeatButton.snp.makeConstraints { make in
-            make.bottom.equalTo(backwardEndButton).offset(0)
+            make.bottom.equalTo(backwardEndButton)
             make.trailing.equalTo(backwardEndButton).offset(-58)
             make.size.equalTo(CGSize(width: 35, height: 28))
         }
@@ -345,7 +347,6 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func initPlayer(songName: String, index: Int) {
-        // Audio Session 설정
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
@@ -354,19 +355,16 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             print("audioSession 설정 오류 : \(error.localizedDescription)")
         }
         
-        // 음악 파일 가져오기
         guard let soundAsset: NSDataAsset = NSDataAsset(name: songName) else {
             print("음악 파일이 없습니다.")
             return
         }
         
-        // audio player를 초기화합니다.
         do {
             try musicPlayer = AVAudioPlayer(data: soundAsset.data)
             musicPlayer.delegate = self
             currentSongIndexPath = index
             remoteCommandInfoCenterSetting()
-            initLyrics(index: currentSongIndexPath)
             musicPlayer.volume = 1
             tableView.reloadData()
             musicPlayer.play()
@@ -378,31 +376,6 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         playSlider.maximumValue = Float(musicPlayer.duration);
         playSlider.minimumValue = 0;
         playSlider.value = Float(musicPlayer.currentTime);
-    }
-    
-    func initLyrics (index: Int) {
-        mainTableViewList.removeAll()
-        
-        if index == 0 {
-            for lyrics in stillLifeLyricsList {
-                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics)
-                mainTableViewList.append(item)
-                
-            }
-            
-        } else if index == 1 {
-            
-            for lyrics in beyondLoveLyricsList {
-                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics)
-                mainTableViewList.append(item)
-            }
-        } else if index == 2 {
-            
-            for lyrics in ghostLyricsList {
-                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics)
-                mainTableViewList.append(item)
-            }
-        }
     }
     
     func startOrStopFunction() {
@@ -460,6 +433,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         timer.fire();
     }
     
+    
     func updateTimeLabelText(currentTime:TimeInterval){
         let currentTimeMinute : Int = Int(currentTime / 60)
         let currentTimeSecond : Int = Int(currentTime.truncatingRemainder(dividingBy: 60))
@@ -470,23 +444,17 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let currentTimeText : String = String(format : "%02ld:%02ld", currentTimeMinute, currentTimeSecond);
         let durationTimeText : String = String(format : "%02ld:%02ld", durationTimeMinute, durationTimeSecond);
         
-        lyricsFocusing(minute: currentTimeMinute, second: currentTimeSecond)
+        lyricsFocusingFunction(minute: currentTimeMinute, second: currentTimeSecond)
         currentTimeLabel.text = currentTimeText
         currentSongMaxTimeLabel.text = durationTimeText
     }
     
-    func lyricsFocusing(minute: Int, second: Int) {
-//        var currentLyricsIndex:Int = 0
-//
-//        if minute == 0 && second == 0 {
-//            mainTableViewList[0].stillLifeState = 1
-//
-//        } else if minute == 0 && second == 5 {
-//            mainTableViewList[0].stillLifeState = 0
-//            mainTableViewList[1].stillLifeState = 1
-//            currentLyricsIndex = 1
-//        }
-//        tableView.reloadData()
+    func lyricsFocusingFunction(minute: Int, second: Int) {
+        for i in 0...stillLifeLyricsTimeList.count - 1 {
+            if stillLifeLyricsTimeList[i][0] == minute && stillLifeLyricsTimeList[i][1] == second {
+                lyricsTextColorState = i
+            }
+        }
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -540,23 +508,26 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height - 430)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//
-        // Save start time view at indexPath.
-//    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainTableViewList.count
+        var mainListCount = 0
+        
+        if currentSongIndexPath == 0 { mainListCount = stillLifeLyricsList.count }
+        else if currentSongIndexPath == 1 {  mainListCount = beyondLoveLyricsList.count }
+        else if currentSongIndexPath == 2 {  mainListCount = ghostLyricsList.count }
+        
+        return mainListCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewTableCell", for: indexPath) as? MainViewTableCell else { return UITableViewCell() }
-        let mainListData = mainTableViewList[indexPath.row]
         
-        cell.transportDataToCell(lyricsText: mainListData.stillLifeLyrics)
+        if currentSongIndexPath == 0 { cell.transportDataToCell(lyricsText: stillLifeLyricsList[indexPath.row]) }
+        else if currentSongIndexPath == 1 { cell.transportDataToCell(lyricsText: beyondLoveLyricsList[indexPath.row]) }
+        else if currentSongIndexPath == 2 { cell.transportDataToCell(lyricsText: ghostLyricsList[indexPath.row]) }
+
         cell.selectedBackgroundView = backgroud
         
         return cell
