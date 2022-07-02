@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import AVFoundation
+import MediaPlayer
 
 public extension UIColor {
     static let textColor = UIColor(named: "commonTextColor")
@@ -25,7 +26,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     let currentSongMaxTimeLabel = UILabel()
     let repeatButton = UIButton()
     
-    var currentSongIndexPath: Int = .zero
+    var currentSongIndexPath: Int = -1
     var repeatButtonStateNumber: Int = .zero
     
     lazy var collectionView: UICollectionView = {
@@ -186,8 +187,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let point = sender.convert(CGPoint.zero, to: collectionView)
         guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
 
-        initPlayer(songName: mainList[indexPath.row].mainDataTitleLabel)
-        currentSongIndexPath = indexPath.row
+        initPlayer(songName: mainList[indexPath.row].mainDataTitleLabel, index: indexPath.row)
         
         makeAndFireTimer()
         musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
@@ -210,12 +210,10 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     @objc func backwardEndButtonAction(_ sender: UIButton) {
         
         if currentSongIndexPath == 0 {
-            initPlayer(songName: mainList[mainList.count - 1].mainDataTitleLabel)
-            currentSongIndexPath = mainList.count - 1
+            initPlayer(songName: mainList[mainList.count - 1].mainDataTitleLabel, index: mainList.count - 1)
             
         } else {
-            initPlayer(songName: mainList[currentSongIndexPath - 1].mainDataTitleLabel)
-            currentSongIndexPath = currentSongIndexPath - 1
+            initPlayer(songName: mainList[currentSongIndexPath - 1].mainDataTitleLabel, index: currentSongIndexPath - 1)
         }
         
         collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
@@ -252,7 +250,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         musicPlayer.currentTime = TimeInterval(sender.value);
     }
     
-    func initPlayer(songName: String) {
+    func initPlayer(songName: String, index: Int) {
         // Audio Session 설정
         let audioSession = AVAudioSession.sharedInstance()
         
@@ -272,6 +270,8 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         do {
             try musicPlayer = AVAudioPlayer(data: soundAsset.data)
             musicPlayer.delegate = self
+            currentSongIndexPath = index
+            remoteCommandInfoCenterSetting()
             musicPlayer.play()
 
         } catch let error as NSError {
@@ -309,19 +309,17 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     
     func forwardEndFunction() {
         if currentSongIndexPath == (mainList.count - 1) {
-            initPlayer(songName: mainList[0].mainDataTitleLabel)
-            currentSongIndexPath = 0
+            initPlayer(songName: mainList[0].mainDataTitleLabel, index: 0)
 
         } else {
-            initPlayer(songName: mainList[currentSongIndexPath + 1].mainDataTitleLabel)
-            currentSongIndexPath = currentSongIndexPath + 1
+            initPlayer(songName: mainList[currentSongIndexPath + 1].mainDataTitleLabel, index: currentSongIndexPath + 1)
         }
         
         collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
     }
     
     func oneSongRepeatFunction() {
-        initPlayer(songName: mainList[currentSongIndexPath].mainDataTitleLabel)
+        initPlayer(songName: mainList[currentSongIndexPath].mainDataTitleLabel, index: currentSongIndexPath)
     }
     
     func updateTimeLabelText(currentTime:TimeInterval){
@@ -345,6 +343,26 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         } else if repeatButtonStateNumber == 2 {
             oneSongRepeatFunction()
         }
+    }
+    
+    func remoteCommandInfoCenterSetting() {
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        let center = MPNowPlayingInfoCenter.default()
+        var nowPlayingInfo = center.nowPlayingInfo ?? [String: Any]()
+        let image: UIImage = mainList[currentSongIndexPath].mainDataTitleImage
+        
+        nowPlayingInfo[MPMediaItemPropertyTitle] = mainList[currentSongIndexPath].mainDataTitleLabel
+        nowPlayingInfo[MPMediaItemPropertyArtist] = mainList[currentSongIndexPath].mainDataSingerLabel
+        
+        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size, requestHandler: {
+            size in return image
+        })
+            
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = musicPlayer.duration
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = musicPlayer.rate
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = musicPlayer.currentTime
+        
+        center.nowPlayingInfo = nowPlayingInfo
     }
 }
 
