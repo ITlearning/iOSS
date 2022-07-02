@@ -20,12 +20,13 @@ public extension UIColor {
 class MainViewController: UIViewController, AVAudioPlayerDelegate {
     
     var musicPlayer = AVAudioPlayer()
-    var currentTime: Double = 0
     var timer = Timer()
-    var currentSongIndexPath: Int = -1
-    var repeatButtonStateNumber: Int = .zero
     let currentTimeLabel = UILabel()
     let currentSongMaxTimeLabel = UILabel()
+    var currentTime: Double = 0
+    var currentSongIndexPath: Int = -1
+    var repeatButtonStateNumber: Int = .zero
+    var currentVolumeStateNumber = 0
     
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -82,11 +83,21 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     }()
     
     let backgroud: UIView = {
-        
         let background = UIView()
-            background.backgroundColor = .clear
         
-    return background
+        background.backgroundColor = .clear
+        
+        return background
+    }()
+    
+    let volumeButton: UIButton = {
+        let lyricsEnlargeButton = UIButton()
+    
+        lyricsEnlargeButton.setImage(UIImage(systemName: "speaker.wave.3.fill"), for: .normal)
+        lyricsEnlargeButton.contentHorizontalAlignment = .fill
+        lyricsEnlargeButton.contentVerticalAlignment = .fill
+        
+        return lyricsEnlargeButton
     }()
     
     override func viewDidLoad() {
@@ -109,8 +120,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let mainViewTitleLabel = UILabel()
         let forwardEndButton = UIButton()
         let backwardEndButton = UIButton()
+        let categoryButton = UIButton()
         
-        let viewList: [UIView] = [collectionView, tableView,mainViewTitleLabel, musicPlayOrStopButton, forwardEndButton, backwardEndButton, playSlider, repeatButton, currentTimeLabel, currentSongMaxTimeLabel]
+        let viewList: [UIView] = [collectionView, tableView,mainViewTitleLabel, musicPlayOrStopButton, forwardEndButton,            backwardEndButton, playSlider, repeatButton, currentTimeLabel, currentSongMaxTimeLabel, volumeButton, categoryButton]
         
         for view in viewList {
             self.view.addSubview(view)
@@ -123,7 +135,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             make.top.equalTo(view).offset(140)
             make.bottom.equalTo(view).offset(-290)
             make.leading.equalTo(view)
-            make.right.equalTo(view)
+            make.trailing.equalTo(view)
         }
         
         tableView.delegate = self
@@ -132,7 +144,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(currentTimeLabel).offset(15)
             make.bottom.equalTo(musicPlayOrStopButton).offset(-60)
-            make.leading.right.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         mainViewTitleLabel.text = "MUZiK!"
@@ -168,7 +180,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         backwardEndButton.snp.makeConstraints { make in
             make.bottom.equalTo(musicPlayOrStopButton).offset(-5)
-            make.right.equalTo(musicPlayOrStopButton).offset(-100)
+            make.trailing.equalTo(musicPlayOrStopButton).offset(-100)
             make.size.equalTo(CGSize(width: 30, height: 30))
         }
         
@@ -181,7 +193,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
 
         repeatButton.snp.makeConstraints { make in
             make.bottom.equalTo(backwardEndButton).offset(-1)
-            make.right.equalTo(backwardEndButton).offset(-58)
+            make.trailing.equalTo(backwardEndButton).offset(-58)
             make.size.equalTo(CGSize(width: 25, height: 25))
         }
                 
@@ -203,11 +215,28 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             make.trailing.equalTo(-2)
         }
         
+        volumeButton.snp.makeConstraints { make in
+            make.bottom.equalTo(backwardEndButton).offset(-2.5)
+            make.trailing.equalTo(forwardEndButton).offset(57.5)
+            make.size.equalTo(CGSize(width: 35, height: 25))
+        }
+        
+        categoryButton.setImage(UIImage(systemName: "text.justify"), for: .normal)
+        categoryButton.contentHorizontalAlignment = .fill
+        categoryButton.contentVerticalAlignment = .fill
+        
+        categoryButton.snp.makeConstraints { make in
+            make.top.equalTo(mainViewTitleLabel).offset(8.2)
+            make.trailing.equalTo(view).offset(-12)
+            make.size.equalTo(CGSize(width: 30, height: 30))
+        }
+        
         musicPlayOrStopButton.addTarget(self, action: #selector(musicPlayOrStopButtonAction(_:)), for: .touchUpInside)
         backwardEndButton.addTarget(self, action: #selector(backwardEndButtonAction(_:)), for: .touchUpInside)
         forwardEndButton.addTarget(self, action: #selector(forwardEndButtonAction(_:)), for: .touchUpInside)
         playSlider.addTarget(self, action: #selector(sliderValueControl), for: .touchUpInside)
         repeatButton.addTarget(self, action: #selector(repeatButtonAction(_:)), for: .touchUpInside)
+        volumeButton.addTarget(self, action: #selector(volumeButtonAction(_:)), for: .touchUpInside)
     }
     
     @objc func mainCellTitleImageAction(_ sender: UIButton) {
@@ -280,6 +309,21 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         musicPlayer.currentTime = TimeInterval(sender.value);
     }
     
+    @objc func volumeButtonAction(_ sender: UISlider) {
+        if currentVolumeStateNumber == 0 {
+            currentVolumeStateNumber = 1
+            volumeButton.setImage(UIImage(systemName: "speaker.slash.fill"), for: .normal)
+            volumeButton.tintColor = UIColor.systemGray
+            
+        } else {
+            currentVolumeStateNumber = 0
+            volumeButton.setImage(UIImage(systemName: "speaker.wave.3.fill"), for: .normal)
+            volumeButton.tintColor = UIColor.systemBlue
+        }
+        
+        musicPlayer.volume = abs(Float(currentVolumeStateNumber - 1))
+    }
+    
     func initList() {
         let item: MainCollectionViewData = MainCollectionViewData(mainDataTitleImage: UIImage(named: "stillLifeAlbumCoverImage")!, mainDataTitleLabel: "Still Life", mainDataSingerLabel: "BIGBANG", mainDataAlbumLabel: "STILL LIFE", mainDataSongDate: "2022")
         
@@ -317,6 +361,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             currentSongIndexPath = index
             remoteCommandInfoCenterSetting()
             initLyrics(index: currentSongIndexPath)
+            musicPlayer.volume = 1
             tableView.reloadData()
             musicPlayer.play()
 
@@ -334,7 +379,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         if index == 0 {
             for lyrics in stillLifeLyricsList {
-                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics, stillLifeState: 0)
+                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics)
                 mainTableViewList.append(item)
                 
             }
@@ -342,7 +387,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         } else if index == 1 {
             
             for lyrics in beyondLoveLyricsList {
-                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics, stillLifeState: 0)
+                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics)
                 mainTableViewList.append(item)
             }
         }
@@ -471,8 +516,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewTableCell", for: indexPath) as? MainViewTableCell else { return UITableViewCell() }
         let mainListData = mainTableViewList[indexPath.row]
-
-        cell.transportDataToCell(lyricsText: mainListData.stillLifeLyrics, lyricsState: mainListData.stillLifeState)
+        
+        cell.transportDataToCell(lyricsText: mainListData.stillLifeLyrics)
         cell.selectedBackgroundView = backgroud
         
         return cell

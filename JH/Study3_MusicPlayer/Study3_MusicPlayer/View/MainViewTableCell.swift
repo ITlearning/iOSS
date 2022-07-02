@@ -28,17 +28,13 @@ class MainViewTableCell: UITableViewCell {
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalTo(contentView)
-//            make.height.equalTo(10)
         }
     }
     
-    func transportDataToCell(lyricsText: String, lyricsState: Int) {
+    func transportDataToCell(lyricsText: String) {
         lyricsLabel.text = lyricsText
-        
-        if lyricsState == 1 {
-            lyricsLabel.textColor = UIColor.systemBlue
-        } else { }
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraint()

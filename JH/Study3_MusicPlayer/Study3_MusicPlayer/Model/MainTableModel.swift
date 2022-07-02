@@ -16,7 +16,6 @@ var beyondLoveLyricsList = ["Back to the day", "갓 10대가 됐을 때", "그�
 struct MainTableViewData {
     
     let stillLifeLyrics: String
-    var stillLifeState: Int
 }
 
 
