@@ -23,6 +23,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     var timer = Timer()
     let currentTimeLabel = UILabel()
     let currentSongMaxTimeLabel = UILabel()
+    let repeatButton = UIButton()
+    
+    var currentSongIndexPath: Int = .zero
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -106,7 +109,6 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let mainViewTitleLabel = UILabel()
         let forwardEndButton = UIButton()
         let backwardEndButton = UIButton()
-        let repeatButton = UIButton()
         
         let viewList: [UIView] = [mainViewTitleLabel, forwardEndButton, backwardEndButton, repeatButton, currentTimeLabel, currentSongMaxTimeLabel]
         
@@ -173,19 +175,17 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             make.top.equalTo(playSlider).offset(5)
             make.trailing.equalTo(-2)
         }
+        
+        backwardEndButton.addTarget(self, action: #selector(backwardEndButtonAction(_:)), for: .touchUpInside)
+        forwardEndButton.addTarget(self, action: #selector(forwardEndButtonAction(_:)), for: .touchUpInside)
     }
     
     @objc func mainCellTitleImageAction(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: collectionView)
         guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
 
-        if indexPath.row == 0 {
-            initPlayer(songName: "starman")
-        } else if indexPath.row == 1 {
-            initPlayer(songName: "stillLife")
-        } else if indexPath.row == 2 {
-            initPlayer(songName: "ghost")
-        }
+        initPlayer(songName: mainList[indexPath.row].mainDataTitleLabel)
+        currentSongIndexPath = indexPath.row
         
         makeAndFireTimer()
         musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
@@ -195,15 +195,41 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     @objc func musicPlayOrStopButtonAction(_ sender: UIButton) {
 
         if musicPlayOrStopButton.imageView?.image == UIImage(systemName: "play.fill") {
-            self.musicPlayer.play()
+            musicPlayer.play()
             
             musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
 
         } else {
             currentTime = musicPlayer.currentTime
-            self.musicPlayer.pause()
+            musicPlayer.pause()
             musicPlayOrStopButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
+    }
+    
+    @objc func backwardEndButtonAction(_ sender: UIButton) {
+        if currentSongIndexPath == 0 {
+            initPlayer(songName: mainList[mainList.count - 1].mainDataTitleLabel)
+            currentSongIndexPath = mainList.count - 1
+            
+        } else {
+            initPlayer(songName: mainList[currentSongIndexPath - 1].mainDataTitleLabel)
+            currentSongIndexPath = currentSongIndexPath - 1
+        }
+        
+        musicPlayer.play()
+    }
+    
+    @objc func forwardEndButtonAction(_ sender: UIButton) {
+        if currentSongIndexPath == (mainList.count - 1) {
+            initPlayer(songName: mainList[0].mainDataTitleLabel)
+            currentSongIndexPath = 0
+
+        } else {
+            initPlayer(songName: mainList[currentSongIndexPath + 1].mainDataTitleLabel)
+            currentSongIndexPath = currentSongIndexPath + 1
+        }
+        
+        musicPlayer.play()
     }
     
     @objc func sliderValueControl(_ sender: UISlider) {
@@ -250,9 +276,11 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         let itemThree: MainData = MainData(mainDataTitleImage: UIImage(named: "ghostAlbumCoverImage")!, mainDataTitleLabel: "Ghost", mainDataSingerLabel: "Zior Park", mainDataAlbumLabel: "SYNDROMEZ", mainDataSongDate: "2021")
         
-        mainList.append(item)
-        mainList.append(itemTwo)
-        mainList.append(itemThree)
+        let itemList: [MainData] = [item, itemTwo, itemThree]
+        
+        for items in itemList {
+            mainList.append(items)
+        }
     }
     
     func makeAndFireTimer(){
