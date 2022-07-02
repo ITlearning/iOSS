@@ -17,8 +17,8 @@ class MainViewCollectionCell: UICollectionViewCell {
         return item
     }()
     
-    lazy var mainCellTitleImage: UIImageView = {
-        let mainCellTitleImage = UIImageView()
+    lazy var mainCellTitleImage: UIButton = {
+        let mainCellTitleImage = UIButton()
         
         return mainCellTitleImage
     }()
@@ -109,11 +109,14 @@ class MainViewCollectionCell: UICollectionViewCell {
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
         visualEffectView.frame = self.contentView.frame
         self.item.addSubview(visualEffectView)
+        
+        mainCellTitleImage.addTarget(MainViewController().mainCellTitleImageAction(_:), action: #selector(MainViewController().mainCellTitleImageAction(_:)), for: .touchUpInside)
     }
     
     func transportDataToCell(titleImage: UIImage, titleText: String, singerText: String, albumText: String, dateText: String) {
         item.image = titleImage
-        mainCellTitleImage.image = titleImage
+//        mainCellTitleImage.imageView?.image = titleImage
+        mainCellTitleImage.setImage(titleImage, for: .normal)
         mainCellTitleLabel.text = titleText
         mainCellSingerLabel.text = singerText
         mainCellAlbumLabel.text = "[" + albumText + "]"

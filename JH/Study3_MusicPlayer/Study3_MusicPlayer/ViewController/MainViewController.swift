@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 import AVFoundation
 
-public var aadd = -1
-
 public extension UIColor {
     static let textColor = UIColor(named: "commonTextColor")
     static let backgroundColor = UIColor(named: "backgroundColor")
@@ -22,6 +20,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     
     var musicPlayer = AVAudioPlayer()
     var currentTime: Double = 0
+    var timer = Timer()
+    let currentTimeLabel = UILabel()
+    let currentSongMaxTimeLabel = UILabel()
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -61,13 +62,31 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         musicPlayOrStopButton.snp.makeConstraints { make in
             make.bottom.equalTo(view).offset(-60)
-            make.leading.equalTo(180)
+            make.leading.equalTo(175)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
         
         musicPlayOrStopButton.addTarget(self, action: #selector(musicPlayOrStopButtonAction(_:)), for: .touchUpInside)
         
         return musicPlayOrStopButton
+    }()
+    
+    lazy var playSlider: UISlider = {
+        let playSlider = UISlider()
+        
+        playSlider.setThumbImage(UIImage(), for: .normal)
+        view.addSubview(playSlider)
+        
+        playSlider.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(510)
+            make.top.equalToSuperview().offset(555)
+//            make.height.equalTo(100)
+            make.width.equalTo(view)
+        }
+        
+        playSlider.addTarget(self, action: #selector(sliderValueControl), for: .touchUpInside)
+        
+        return playSlider
     }()
     
     override func viewDidLoad() {
@@ -87,8 +106,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let mainViewTitleLabel = UILabel()
         let forwardEndButton = UIButton()
         let backwardEndButton = UIButton()
+        let repeatButton = UIButton()
         
-        let viewList: [UIView] = [mainViewTitleLabel, forwardEndButton, backwardEndButton]
+        let viewList: [UIView] = [mainViewTitleLabel, forwardEndButton, backwardEndButton, repeatButton, currentTimeLabel, currentSongMaxTimeLabel]
         
         for view in viewList {
             self.view.addSubview(view)
@@ -110,9 +130,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         forwardEndButton.contentVerticalAlignment = .fill
         
         forwardEndButton.snp.makeConstraints { make in
-            make.bottom.equalTo(musicPlayOrStopButton)
+            make.bottom.equalTo(musicPlayOrStopButton).offset(-5)
             make.leading.equalTo(musicPlayOrStopButton).offset(100)
-            make.size.equalTo(CGSize(width: 40, height: 40))
+            make.size.equalTo(CGSize(width: 30, height: 30))
         }
         
         backwardEndButton.setImage(UIImage(systemName: "backward.end.fill"), for: .normal)
@@ -120,22 +140,60 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         backwardEndButton.contentVerticalAlignment = .fill
         
         backwardEndButton.snp.makeConstraints { make in
-            make.bottom.equalTo(musicPlayOrStopButton)
+            make.bottom.equalTo(musicPlayOrStopButton).offset(-5)
             make.right.equalTo(musicPlayOrStopButton).offset(-100)
-            make.size.equalTo(CGSize(width: 40, height: 40))
+            make.size.equalTo(CGSize(width: 30, height: 30))
+        }
+        
+        repeatButton.setImage(UIImage(systemName: "repeat"), for: .normal)
+        repeatButton.contentHorizontalAlignment = .fill
+        repeatButton.contentVerticalAlignment = .fill
+        repeatButton.tintColor = .systemGray
+
+        repeatButton.snp.makeConstraints { make in
+            make.bottom.equalTo(backwardEndButton).offset(-1)
+            make.right.equalTo(backwardEndButton).offset(-55)
+            make.size.equalTo(CGSize(width: 25, height: 25))
+        }
+                
+        currentTimeLabel.text = ""
+        currentTimeLabel.textColor = .systemBlue
+        currentTimeLabel.font = UIFont.boldSystemFont(ofSize: 13)
+        
+        currentTimeLabel.snp.makeConstraints { make in
+            make.top.equalTo(playSlider).offset(5)
+            make.leading.equalTo(2)
+        }
+        
+        currentSongMaxTimeLabel.text = ""
+        currentSongMaxTimeLabel.textColor = .systemBlue
+        currentSongMaxTimeLabel.font = UIFont.boldSystemFont(ofSize: 13)
+        
+        currentSongMaxTimeLabel.snp.makeConstraints { make in
+            make.top.equalTo(playSlider).offset(5)
+            make.trailing.equalTo(-2)
         }
     }
     
-    @objc func musicPlayOrStopButtonAction(_ sender: UIButton) {
-//        let point = sender.convert(CGPoint.zero, to: collectionView)
-//        guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
-//
-        if aadd == 0 {
+    @objc func mainCellTitleImageAction(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
+
+        if indexPath.row == 0 {
             initPlayer(songName: "starman")
-        } else {
+        } else if indexPath.row == 1 {
             initPlayer(songName: "stillLife")
+        } else if indexPath.row == 2 {
+            initPlayer(songName: "ghost")
         }
         
+        makeAndFireTimer()
+        musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        musicPlayer.play()
+    }
+    
+    @objc func musicPlayOrStopButtonAction(_ sender: UIButton) {
+
         if musicPlayOrStopButton.imageView?.image == UIImage(systemName: "play.fill") {
             self.musicPlayer.play()
             
@@ -148,9 +206,17 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    @objc func sliderValueControl(_ sender: UISlider) {
+        updateTimeLabelText(currentTime: TimeInterval(sender.value))
+        
+        if sender.isTracking { return }
+        musicPlayer.currentTime = TimeInterval(sender.value);
+    }
+    
     func initPlayer(songName: String) {
         // Audio Session 설정
         let audioSession = AVAudioSession.sharedInstance()
+        
         do {
             try audioSession.setCategory(.playback, mode: .default, options: [])
         } catch let error as NSError {
@@ -165,12 +231,16 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         // audio player를 초기화합니다.
         do {
-            try self.musicPlayer = AVAudioPlayer(data: soundAsset.data)
-            self.musicPlayer.delegate = self
-//            self.musicPlayer.play()
+            try musicPlayer = AVAudioPlayer(data: soundAsset.data)
+            musicPlayer.delegate = self
+
         } catch let error as NSError {
             print("플레이어 초기화 오류 발생 : \(error.localizedDescription)")
         }
+        
+        playSlider.maximumValue = Float(musicPlayer.duration);
+        playSlider.minimumValue = 0;
+        playSlider.value = Float(musicPlayer.currentTime);
     }
     
     func initList() {
@@ -183,6 +253,30 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         mainList.append(item)
         mainList.append(itemTwo)
         mainList.append(itemThree)
+    }
+    
+    func makeAndFireTimer(){
+        timer = Timer.scheduledTimer(withTimeInterval : 0.01, repeats: true, block : { [unowned self] (timer : Timer) in
+            if playSlider.isTracking { return };
+            updateTimeLabelText(currentTime: musicPlayer.currentTime);
+            playSlider.value = Float(musicPlayer.currentTime);
+        })
+        
+        timer.fire();
+    }
+    
+    func updateTimeLabelText(currentTime:TimeInterval){
+        let currentTimeMinute : Int = Int(currentTime / 60)
+        let currentTimeSecond : Int = Int(currentTime.truncatingRemainder(dividingBy: 60))
+        
+        let durationTimeMinute : Int = Int(musicPlayer.duration / 60)
+        let durationTimeSecond : Int = Int(musicPlayer.duration.truncatingRemainder(dividingBy: 60))
+
+        let currentTimeText : String = String(format : "%02ld:%02ld", currentTimeMinute, currentTimeSecond);
+        let durationTimeText : String = String(format : "%02ld:%02ld", durationTimeMinute, durationTimeSecond);
+
+        currentTimeLabel.text = currentTimeText
+        currentSongMaxTimeLabel.text = durationTimeText
     }
 }
 
@@ -205,11 +299,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return CGSize(width: view.frame.width, height: view.frame.height - 430)
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//
         // Save start time view at indexPath.
-        aadd = indexPath.row
-        print(aadd)
-    }
+//    }
 }
 
