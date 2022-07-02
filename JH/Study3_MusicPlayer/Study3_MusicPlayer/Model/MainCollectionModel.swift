@@ -7,9 +7,9 @@
 
 import UIKit
 
-var mainList = [MainData]()
+var mainCollectionViewList = [MainCollectionViewData]()
 
-struct MainData {
+struct MainCollectionViewData {
     
     let mainDataTitleImage: UIImage
     let mainDataTitleLabel: String

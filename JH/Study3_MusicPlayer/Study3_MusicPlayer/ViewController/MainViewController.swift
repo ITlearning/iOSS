@@ -22,20 +22,16 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     var musicPlayer = AVAudioPlayer()
     var currentTime: Double = 0
     var timer = Timer()
-    let currentTimeLabel = UILabel()
-    let currentSongMaxTimeLabel = UILabel()
-    let repeatButton = UIButton()
-    
     var currentSongIndexPath: Int = -1
     var repeatButtonStateNumber: Int = .zero
+    let currentTimeLabel = UILabel()
+    let currentSongMaxTimeLabel = UILabel()
     
-    lazy var collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         
         collectionView.register(MainViewCollectionCell.self, forCellWithReuseIdentifier: "MainViewCollectionCell")
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.backgroundColor
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -44,61 +40,63 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         flowLayout.scrollDirection = .horizontal
         
-        view.addSubview(collectionView)
-        
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(140)
-            make.bottom.equalTo(view).offset(-290)
-            make.leading.equalTo(view)
-            make.right.equalTo(view)
-        }
-        
         return collectionView
     }()
     
-    lazy var musicPlayOrStopButton: UIButton = {
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        
+        tableView.register(MainViewTableCell.self, forCellReuseIdentifier: "MainViewTableCell")
+        tableView.backgroundColor = UIColor.backgroundColor
+        
+        return tableView
+    }()
+    
+   let musicPlayOrStopButton: UIButton = {
         let musicPlayOrStopButton = UIButton()
         
         musicPlayOrStopButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         musicPlayOrStopButton.contentHorizontalAlignment = .fill
         musicPlayOrStopButton.contentVerticalAlignment = .fill
-        
-        view.addSubview(musicPlayOrStopButton)
-        
-        musicPlayOrStopButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view).offset(-60)
-            make.leading.equalTo(175)
-            make.size.equalTo(CGSize(width: 40, height: 40))
-        }
-        
-        musicPlayOrStopButton.addTarget(self, action: #selector(musicPlayOrStopButtonAction(_:)), for: .touchUpInside)
-        
+                
         return musicPlayOrStopButton
     }()
     
-    lazy var playSlider: UISlider = {
+    let playSlider: UISlider = {
         let playSlider = UISlider()
         
         playSlider.setThumbImage(UIImage(), for: .normal)
-        view.addSubview(playSlider)
-        
-        playSlider.snp.makeConstraints { make in
-//            make.top.equalToSuperview().offset(510)
-            make.top.equalToSuperview().offset(555)
-//            make.height.equalTo(100)
-            make.width.equalTo(view)
-        }
-        
-        playSlider.addTarget(self, action: #selector(sliderValueControl), for: .touchUpInside)
-        
+            
         return playSlider
+    }()
+    
+    let repeatButton: UIButton = {
+        let repeatButton = UIButton()
+        
+        repeatButton.setImage(UIImage(systemName: "repeat"), for: .normal)
+        repeatButton.contentHorizontalAlignment = .fill
+        repeatButton.contentVerticalAlignment = .fill
+        repeatButton.tintColor = .systemGray
+        
+        return repeatButton
+    }()
+    
+    let backgroud: UIView = {
+        
+        let background = UIView()
+            background.backgroundColor = .clear
+        
+    return background
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initList()
         configureLayout()
-        // Do any additional setup after loading the view.
+        tableView.rowHeight = 25;
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
+        print(mainTableViewList.count)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,10 +110,29 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let forwardEndButton = UIButton()
         let backwardEndButton = UIButton()
         
-        let viewList: [UIView] = [mainViewTitleLabel, forwardEndButton, backwardEndButton, repeatButton, currentTimeLabel, currentSongMaxTimeLabel]
+        let viewList: [UIView] = [collectionView, tableView,mainViewTitleLabel, musicPlayOrStopButton, forwardEndButton, backwardEndButton, playSlider, repeatButton, currentTimeLabel, currentSongMaxTimeLabel]
         
         for view in viewList {
             self.view.addSubview(view)
+        }
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(view).offset(140)
+            make.bottom.equalTo(view).offset(-290)
+            make.leading.equalTo(view)
+            make.right.equalTo(view)
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(currentTimeLabel).offset(15)
+            make.bottom.equalTo(musicPlayOrStopButton).offset(-60)
+            make.leading.right.equalToSuperview()
         }
         
         mainViewTitleLabel.text = "MUZiK!"
@@ -127,6 +144,12 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         mainViewTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(view).offset(70)
             make.width.equalTo(view)
+        }
+        
+        musicPlayOrStopButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view).offset(-60)
+            make.leading.equalTo(175)
+            make.size.equalTo(CGSize(width: 40, height: 40))
         }
         
         forwardEndButton.setImage(UIImage(systemName: "forward.end.fill"), for: .normal)
@@ -149,10 +172,12 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             make.size.equalTo(CGSize(width: 30, height: 30))
         }
         
-        repeatButton.setImage(UIImage(systemName: "repeat"), for: .normal)
-        repeatButton.contentHorizontalAlignment = .fill
-        repeatButton.contentVerticalAlignment = .fill
-        repeatButton.tintColor = .systemGray
+        playSlider.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(510)
+            make.top.equalToSuperview().offset(555)
+            make.height.equalTo(10)
+            make.width.equalTo(view)
+        }
 
         repeatButton.snp.makeConstraints { make in
             make.bottom.equalTo(backwardEndButton).offset(-1)
@@ -165,7 +190,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         currentTimeLabel.font = UIFont.boldSystemFont(ofSize: 13)
         
         currentTimeLabel.snp.makeConstraints { make in
-            make.top.equalTo(playSlider).offset(5)
+            make.top.equalTo(playSlider).offset(10)
             make.leading.equalTo(2)
         }
         
@@ -174,12 +199,14 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         currentSongMaxTimeLabel.font = UIFont.boldSystemFont(ofSize: 13)
         
         currentSongMaxTimeLabel.snp.makeConstraints { make in
-            make.top.equalTo(playSlider).offset(5)
+            make.top.equalTo(playSlider).offset(10)
             make.trailing.equalTo(-2)
         }
         
+        musicPlayOrStopButton.addTarget(self, action: #selector(musicPlayOrStopButtonAction(_:)), for: .touchUpInside)
         backwardEndButton.addTarget(self, action: #selector(backwardEndButtonAction(_:)), for: .touchUpInside)
         forwardEndButton.addTarget(self, action: #selector(forwardEndButtonAction(_:)), for: .touchUpInside)
+        playSlider.addTarget(self, action: #selector(sliderValueControl), for: .touchUpInside)
         repeatButton.addTarget(self, action: #selector(repeatButtonAction(_:)), for: .touchUpInside)
     }
     
@@ -187,7 +214,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let point = sender.convert(CGPoint.zero, to: collectionView)
         guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
 
-        initPlayer(songName: mainList[indexPath.row].mainDataTitleLabel, index: indexPath.row)
+        initPlayer(songName: mainCollectionViewList[indexPath.row].mainDataTitleLabel, index: indexPath.row)
         
         makeAndFireTimer()
         musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
@@ -210,10 +237,13 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     @objc func backwardEndButtonAction(_ sender: UIButton) {
         
         if currentSongIndexPath == 0 {
-            initPlayer(songName: mainList[mainList.count - 1].mainDataTitleLabel, index: mainList.count - 1)
+            initPlayer(songName: mainCollectionViewList[mainCollectionViewList.count - 1].mainDataTitleLabel, index: mainCollectionViewList.count - 1)
             
+        } else if currentSongIndexPath == -1 {
+            return
+
         } else {
-            initPlayer(songName: mainList[currentSongIndexPath - 1].mainDataTitleLabel, index: currentSongIndexPath - 1)
+            initPlayer(songName: mainCollectionViewList[currentSongIndexPath - 1].mainDataTitleLabel, index: currentSongIndexPath - 1)
         }
         
         collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
@@ -250,6 +280,20 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         musicPlayer.currentTime = TimeInterval(sender.value);
     }
     
+    func initList() {
+        let item: MainCollectionViewData = MainCollectionViewData(mainDataTitleImage: UIImage(named: "stillLifeAlbumCoverImage")!, mainDataTitleLabel: "Still Life", mainDataSingerLabel: "BIGBANG", mainDataAlbumLabel: "STILL LIFE", mainDataSongDate: "2022")
+        
+        let itemTwo: MainCollectionViewData = MainCollectionViewData(mainDataTitleImage: UIImage(named: "BeyondLoveAlbumCover")!, mainDataTitleLabel: "Beyond Love", mainDataSingerLabel: "BIG Naughty (서동현)", mainDataAlbumLabel: "Beyond", mainDataSongDate: "2022")
+        
+        let itemThree: MainCollectionViewData = MainCollectionViewData(mainDataTitleImage: UIImage(named: "GhostAlbumCoverImage")!, mainDataTitleLabel: "Ghost", mainDataSingerLabel: "Zior Park", mainDataAlbumLabel: "SYNDROMEZ", mainDataSongDate: "2021")
+        
+        let itemList: [MainCollectionViewData] = [item, itemTwo, itemThree]
+        
+        for items in itemList {
+            mainCollectionViewList.append(items)
+        }
+    }
+    
     func initPlayer(songName: String, index: Int) {
         // Audio Session 설정
         let audioSession = AVAudioSession.sharedInstance()
@@ -272,6 +316,8 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             musicPlayer.delegate = self
             currentSongIndexPath = index
             remoteCommandInfoCenterSetting()
+            initLyrics(index: currentSongIndexPath)
+            tableView.reloadData()
             musicPlayer.play()
 
         } catch let error as NSError {
@@ -283,18 +329,41 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         playSlider.value = Float(musicPlayer.currentTime);
     }
     
-    func initList() {
-        let item: MainData = MainData(mainDataTitleImage: UIImage(named: "starmanAlbumCoverImage")!, mainDataTitleLabel: "Starman", mainDataSingerLabel: "David Bowie", mainDataAlbumLabel: "The Rise And Fall Of Ziggy Stardust", mainDataSongDate: "1972")
+    func initLyrics (index: Int) {
+        mainTableViewList.removeAll()
         
-        let itemTwo: MainData = MainData(mainDataTitleImage: UIImage(named: "stillLifeAlbumCoverImage")!, mainDataTitleLabel: "Still Life", mainDataSingerLabel: "BIGBANG", mainDataAlbumLabel: "STILL LIFE", mainDataSongDate: "2022")
-        
-        let itemThree: MainData = MainData(mainDataTitleImage: UIImage(named: "ghostAlbumCoverImage")!, mainDataTitleLabel: "Ghost", mainDataSingerLabel: "Zior Park", mainDataAlbumLabel: "SYNDROMEZ", mainDataSongDate: "2021")
-        
-        let itemList: [MainData] = [item, itemTwo, itemThree]
-        
-        for items in itemList {
-            mainList.append(items)
+        if index == 0 {
+            for lyrics in stillLifeLyricsList {
+                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics, stillLifeState: 0)
+                mainTableViewList.append(item)
+                
+            }
+            
+        } else if index == 1 {
+            
+            for lyrics in beyondLoveLyricsList {
+                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics, stillLifeState: 0)
+                mainTableViewList.append(item)
+            }
         }
+    }
+    
+    func forwardEndFunction() {
+        if currentSongIndexPath == (mainCollectionViewList.count - 1) {
+            initPlayer(songName: mainCollectionViewList[0].mainDataTitleLabel, index: 0)
+            
+        } else if currentSongIndexPath == -1 {
+            return
+
+        } else {
+            initPlayer(songName: mainCollectionViewList[currentSongIndexPath + 1].mainDataTitleLabel, index: currentSongIndexPath + 1)
+        }
+        
+        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
+    }
+    
+    func oneSongRepeatFunction() {
+        initPlayer(songName: mainCollectionViewList[currentSongIndexPath].mainDataTitleLabel, index: currentSongIndexPath)
     }
     
     func makeAndFireTimer(){
@@ -307,21 +376,6 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         timer.fire();
     }
     
-    func forwardEndFunction() {
-        if currentSongIndexPath == (mainList.count - 1) {
-            initPlayer(songName: mainList[0].mainDataTitleLabel, index: 0)
-
-        } else {
-            initPlayer(songName: mainList[currentSongIndexPath + 1].mainDataTitleLabel, index: currentSongIndexPath + 1)
-        }
-        
-        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
-    }
-    
-    func oneSongRepeatFunction() {
-        initPlayer(songName: mainList[currentSongIndexPath].mainDataTitleLabel, index: currentSongIndexPath)
-    }
-    
     func updateTimeLabelText(currentTime:TimeInterval){
         let currentTimeMinute : Int = Int(currentTime / 60)
         let currentTimeSecond : Int = Int(currentTime.truncatingRemainder(dividingBy: 60))
@@ -331,9 +385,24 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
 
         let currentTimeText : String = String(format : "%02ld:%02ld", currentTimeMinute, currentTimeSecond);
         let durationTimeText : String = String(format : "%02ld:%02ld", durationTimeMinute, durationTimeSecond);
-
+        
+        lyricsFocusing(minute: currentTimeMinute, second: currentTimeSecond)
         currentTimeLabel.text = currentTimeText
         currentSongMaxTimeLabel.text = durationTimeText
+    }
+    
+    func lyricsFocusing(minute: Int, second: Int) {
+//        var currentLyricsIndex:Int = 0
+//
+//        if minute == 0 && second == 0 {
+//            mainTableViewList[0].stillLifeState = 1
+//
+//        } else if minute == 0 && second == 5 {
+//            mainTableViewList[0].stillLifeState = 0
+//            mainTableViewList[1].stillLifeState = 1
+//            currentLyricsIndex = 1
+//        }
+//        tableView.reloadData()
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -342,6 +411,9 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             
         } else if repeatButtonStateNumber == 2 {
             oneSongRepeatFunction()
+            
+        } else {
+            musicPlayOrStopButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         }
     }
     
@@ -349,10 +421,10 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         UIApplication.shared.beginReceivingRemoteControlEvents()
         let center = MPNowPlayingInfoCenter.default()
         var nowPlayingInfo = center.nowPlayingInfo ?? [String: Any]()
-        let image: UIImage = mainList[currentSongIndexPath].mainDataTitleImage
+        let image: UIImage = mainCollectionViewList[currentSongIndexPath].mainDataTitleImage
         
-        nowPlayingInfo[MPMediaItemPropertyTitle] = mainList[currentSongIndexPath].mainDataTitleLabel
-        nowPlayingInfo[MPMediaItemPropertyArtist] = mainList[currentSongIndexPath].mainDataSingerLabel
+        nowPlayingInfo[MPMediaItemPropertyTitle] = mainCollectionViewList[currentSongIndexPath].mainDataTitleLabel
+        nowPlayingInfo[MPMediaItemPropertyArtist] = mainCollectionViewList[currentSongIndexPath].mainDataSingerLabel
         
         nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size, requestHandler: {
             size in return image
@@ -369,12 +441,12 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return mainList.count
+        return mainCollectionViewList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainViewCollectionCell", for: indexPath) as? MainViewCollectionCell else { return UICollectionViewCell() }
-        let mainListData = mainList[indexPath.row]
+        let mainListData = mainCollectionViewList[indexPath.row]
         
         cell.transportDataToCell(titleImage: mainListData.mainDataTitleImage, titleText: mainListData.mainDataTitleLabel, singerText: mainListData.mainDataSingerLabel, albumText: mainListData.mainDataAlbumLabel, dateText: mainListData.mainDataSongDate)
 
@@ -391,3 +463,18 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //    }
 }
 
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return mainTableViewList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewTableCell", for: indexPath) as? MainViewTableCell else { return UITableViewCell() }
+        let mainListData = mainTableViewList[indexPath.row]
+
+        cell.transportDataToCell(lyricsText: mainListData.stillLifeLyrics, lyricsState: mainListData.stillLifeState)
+        cell.selectedBackgroundView = backgroud
+        
+        return cell
+    }
+}
