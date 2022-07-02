@@ -60,6 +60,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         musicPlayOrStopButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         musicPlayOrStopButton.contentHorizontalAlignment = .fill
         musicPlayOrStopButton.contentVerticalAlignment = .fill
+        musicPlayOrStopButton.tintColor = UIColor.textColor
                 
         return musicPlayOrStopButton
     }()
@@ -78,7 +79,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         repeatButton.setImage(UIImage(systemName: "repeat"), for: .normal)
         repeatButton.contentHorizontalAlignment = .fill
         repeatButton.contentVerticalAlignment = .fill
-        repeatButton.tintColor = .systemGray
+        repeatButton.tintColor = UIColor.systemGray
         
         return repeatButton
     }()
@@ -86,7 +87,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     let backgroud: UIView = {
         let background = UIView()
         
-        background.backgroundColor = .clear
+        background.backgroundColor = UIColor.clear
         
         return background
     }()
@@ -168,6 +169,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         forwardEndButton.setImage(UIImage(systemName: "forward.end.fill"), for: .normal)
         forwardEndButton.contentHorizontalAlignment = .fill
         forwardEndButton.contentVerticalAlignment = .fill
+        forwardEndButton.tintColor = UIColor.textColor
         
         forwardEndButton.snp.makeConstraints { make in
             make.bottom.equalTo(musicPlayOrStopButton).offset(-5)
@@ -178,6 +180,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         backwardEndButton.setImage(UIImage(systemName: "backward.end.fill"), for: .normal)
         backwardEndButton.contentHorizontalAlignment = .fill
         backwardEndButton.contentVerticalAlignment = .fill
+        backwardEndButton.tintColor = UIColor.textColor
         
         backwardEndButton.snp.makeConstraints { make in
             make.bottom.equalTo(musicPlayOrStopButton).offset(-5)
@@ -193,13 +196,13 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         }
 
         repeatButton.snp.makeConstraints { make in
-            make.bottom.equalTo(backwardEndButton).offset(-1)
+            make.bottom.equalTo(backwardEndButton).offset(0)
             make.trailing.equalTo(backwardEndButton).offset(-58)
-            make.size.equalTo(CGSize(width: 25, height: 25))
+            make.size.equalTo(CGSize(width: 35, height: 28))
         }
                 
         currentTimeLabel.text = ""
-        currentTimeLabel.textColor = .systemBlue
+        currentTimeLabel.textColor = UIColor.systemBlue
         currentTimeLabel.font = UIFont.boldSystemFont(ofSize: 13)
         
         currentTimeLabel.snp.makeConstraints { make in
@@ -208,7 +211,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         }
         
         currentSongMaxTimeLabel.text = ""
-        currentSongMaxTimeLabel.textColor = .systemBlue
+        currentSongMaxTimeLabel.textColor = UIColor.darkGray
         currentSongMaxTimeLabel.font = UIFont.boldSystemFont(ofSize: 13)
         
         currentSongMaxTimeLabel.snp.makeConstraints { make in
@@ -225,6 +228,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         categoryButton.setImage(UIImage(systemName: "text.justify"), for: .normal)
         categoryButton.contentHorizontalAlignment = .fill
         categoryButton.contentVerticalAlignment = .fill
+        categoryButton.tintColor = UIColor.darkGray
         
         categoryButton.snp.makeConstraints { make in
             make.top.equalTo(mainViewTitleLabel).offset(8.2)
