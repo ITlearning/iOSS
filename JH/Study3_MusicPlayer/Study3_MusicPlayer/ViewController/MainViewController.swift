@@ -26,6 +26,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     let repeatButton = UIButton()
     
     var currentSongIndexPath: Int = .zero
+    var repeatButtonStateNumber: Int = .zero
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -154,7 +155,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
 
         repeatButton.snp.makeConstraints { make in
             make.bottom.equalTo(backwardEndButton).offset(-1)
-            make.right.equalTo(backwardEndButton).offset(-55)
+            make.right.equalTo(backwardEndButton).offset(-58)
             make.size.equalTo(CGSize(width: 25, height: 25))
         }
                 
@@ -178,6 +179,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         backwardEndButton.addTarget(self, action: #selector(backwardEndButtonAction(_:)), for: .touchUpInside)
         forwardEndButton.addTarget(self, action: #selector(forwardEndButtonAction(_:)), for: .touchUpInside)
+        repeatButton.addTarget(self, action: #selector(repeatButtonAction(_:)), for: .touchUpInside)
     }
     
     @objc func mainCellTitleImageAction(_ sender: UIButton) {
@@ -189,7 +191,6 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         makeAndFireTimer()
         musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-        musicPlayer.play()
     }
     
     @objc func musicPlayOrStopButtonAction(_ sender: UIButton) {
@@ -207,6 +208,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     @objc func backwardEndButtonAction(_ sender: UIButton) {
+        
         if currentSongIndexPath == 0 {
             initPlayer(songName: mainList[mainList.count - 1].mainDataTitleLabel)
             currentSongIndexPath = mainList.count - 1
@@ -217,21 +219,30 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         }
         
         collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
-        musicPlayer.play()
     }
     
     @objc func forwardEndButtonAction(_ sender: UIButton) {
-        if currentSongIndexPath == (mainList.count - 1) {
-            initPlayer(songName: mainList[0].mainDataTitleLabel)
-            currentSongIndexPath = 0
-
-        } else {
-            initPlayer(songName: mainList[currentSongIndexPath + 1].mainDataTitleLabel)
-            currentSongIndexPath = currentSongIndexPath + 1
-        }
         
-        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
-        musicPlayer.play()
+        forwardEndFunction()
+    }
+    
+    @objc func repeatButtonAction(_ sender: UIButton) {
+        
+        if repeatButtonStateNumber == 2 {
+            repeatButtonStateNumber = 0
+            
+            repeatButton.tintColor = UIColor.systemGray
+            repeatButton.setImage(UIImage(systemName: "repeat"), for: .normal)
+            
+        } else {
+            repeatButtonStateNumber += 1
+            
+            if repeatButtonStateNumber == 2 {
+                repeatButton.setImage(UIImage(systemName: "repeat.1"), for: .normal)
+            }
+            
+            repeatButton.tintColor = UIColor.systemBlue
+        }
     }
     
     @objc func sliderValueControl(_ sender: UISlider) {
@@ -261,6 +272,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         do {
             try musicPlayer = AVAudioPlayer(data: soundAsset.data)
             musicPlayer.delegate = self
+            musicPlayer.play()
 
         } catch let error as NSError {
             print("플레이어 초기화 오류 발생 : \(error.localizedDescription)")
@@ -295,6 +307,23 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         timer.fire();
     }
     
+    func forwardEndFunction() {
+        if currentSongIndexPath == (mainList.count - 1) {
+            initPlayer(songName: mainList[0].mainDataTitleLabel)
+            currentSongIndexPath = 0
+
+        } else {
+            initPlayer(songName: mainList[currentSongIndexPath + 1].mainDataTitleLabel)
+            currentSongIndexPath = currentSongIndexPath + 1
+        }
+        
+        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
+    }
+    
+    func oneSongRepeatFunction() {
+        initPlayer(songName: mainList[currentSongIndexPath].mainDataTitleLabel)
+    }
+    
     func updateTimeLabelText(currentTime:TimeInterval){
         let currentTimeMinute : Int = Int(currentTime / 60)
         let currentTimeSecond : Int = Int(currentTime.truncatingRemainder(dividingBy: 60))
@@ -307,6 +336,15 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
 
         currentTimeLabel.text = currentTimeText
         currentSongMaxTimeLabel.text = durationTimeText
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if repeatButtonStateNumber == 1 {
+            forwardEndFunction()
+            
+        } else if repeatButtonStateNumber == 2 {
+            oneSongRepeatFunction()
+        }
     }
 }
 
