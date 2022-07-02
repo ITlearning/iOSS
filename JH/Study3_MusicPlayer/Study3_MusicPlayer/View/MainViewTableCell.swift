@@ -15,7 +15,7 @@ class MainViewTableCell: UITableViewCell {
         let lyricsLabel = UILabel()
         
         lyricsLabel.textColor = .systemGray
-        lyricsLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        lyricsLabel.font = UIFont.systemFont(ofSize: 15)
         lyricsLabel.textAlignment = .center
         
         return lyricsLabel

@@ -23,6 +23,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     var timer = Timer()
     let currentTimeLabel = UILabel()
     let currentSongMaxTimeLabel = UILabel()
+    let center = MPRemoteCommandCenter.shared()
     var currentTime: Double = 0
     var currentSongIndexPath: Int = -1
     var repeatButtonStateNumber: Int = .zero
@@ -104,10 +105,10 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         super.viewDidLoad()
         initList()
         configureLayout()
+        MPRemoteCommandCenterAddTarget()
         tableView.rowHeight = 25;
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        print(mainTableViewList.count)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -217,7 +218,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         
         volumeButton.snp.makeConstraints { make in
             make.bottom.equalTo(backwardEndButton).offset(-2.5)
-            make.trailing.equalTo(forwardEndButton).offset(57.5)
+            make.trailing.equalTo(forwardEndButton).offset(61)
             make.size.equalTo(CGSize(width: 35, height: 25))
         }
         
@@ -239,6 +240,29 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         volumeButton.addTarget(self, action: #selector(volumeButtonAction(_:)), for: .touchUpInside)
     }
     
+    func MPRemoteCommandCenterAddTarget() {
+        
+        center.playCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.startOrStopFunction()
+            return .success
+        }
+        
+        center.pauseCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.startOrStopFunction()
+            return .success
+        }
+        
+        center.nextTrackCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.forwardEndFunction()
+            return .success
+        }
+        
+        center.previousTrackCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            self.backwardEndFunction()
+            return .success
+        }
+    }
+    
     @objc func mainCellTitleImageAction(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: collectionView)
         guard let indexPath = collectionView.indexPathForItem(at: point) else { return }
@@ -250,36 +274,14 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     @objc func musicPlayOrStopButtonAction(_ sender: UIButton) {
-
-        if musicPlayOrStopButton.imageView?.image == UIImage(systemName: "play.fill") {
-            musicPlayer.play()
-            
-            musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-
-        } else {
-            currentTime = musicPlayer.currentTime
-            musicPlayer.pause()
-            musicPlayOrStopButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        }
+        startOrStopFunction()
     }
     
     @objc func backwardEndButtonAction(_ sender: UIButton) {
-        
-        if currentSongIndexPath == 0 {
-            initPlayer(songName: mainCollectionViewList[mainCollectionViewList.count - 1].mainDataTitleLabel, index: mainCollectionViewList.count - 1)
-            
-        } else if currentSongIndexPath == -1 {
-            return
-
-        } else {
-            initPlayer(songName: mainCollectionViewList[currentSongIndexPath - 1].mainDataTitleLabel, index: currentSongIndexPath - 1)
-        }
-        
-        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
+        backwardEndFunction()
     }
     
     @objc func forwardEndButtonAction(_ sender: UIButton) {
-        
         forwardEndFunction()
     }
     
@@ -390,7 +392,40 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
                 let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics)
                 mainTableViewList.append(item)
             }
+        } else if index == 2 {
+            
+            for lyrics in ghostLyricsList {
+                let item: MainTableViewData = MainTableViewData(stillLifeLyrics: lyrics)
+                mainTableViewList.append(item)
+            }
         }
+    }
+    
+    func startOrStopFunction() {
+        if musicPlayOrStopButton.imageView?.image == UIImage(systemName: "play.fill") {
+            musicPlayer.play()
+            
+            musicPlayOrStopButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+
+        } else {
+            currentTime = musicPlayer.currentTime
+            musicPlayer.pause()
+            musicPlayOrStopButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        }
+    }
+    
+    func backwardEndFunction() {
+        if currentSongIndexPath == 0 {
+            initPlayer(songName: mainCollectionViewList[mainCollectionViewList.count - 1].mainDataTitleLabel, index: mainCollectionViewList.count - 1)
+            
+        } else if currentSongIndexPath == -1 {
+            return
+
+        } else {
+            initPlayer(songName: mainCollectionViewList[currentSongIndexPath - 1].mainDataTitleLabel, index: currentSongIndexPath - 1)
+        }
+        
+        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
     }
     
     func forwardEndFunction() {
