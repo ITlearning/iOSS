@@ -216,6 +216,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             currentSongIndexPath = currentSongIndexPath - 1
         }
         
+        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
         musicPlayer.play()
     }
     
@@ -229,6 +230,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             currentSongIndexPath = currentSongIndexPath + 1
         }
         
+        collectionView.scrollToItem(at: IndexPath(item: currentSongIndexPath, section: 0), at: .init(rawValue: 0), animated: true)
         musicPlayer.play()
     }
     
