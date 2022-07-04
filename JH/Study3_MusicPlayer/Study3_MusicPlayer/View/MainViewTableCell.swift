@@ -31,13 +31,12 @@ class MainViewTableCell: UITableViewCell {
         }
     }
     
-    func transportDataToCell(lyricsText: String) {
+    func transportDataToCell(lyricsText: String, index: Int) {
         lyricsLabel.text = lyricsText
-    }
-    
-    func changelyricsTextColor(lyricsText: String, index: Int) {
-        lyricsLabel.text = lyricsText
-        lyricsLabel.textColor = .systemBlue
+        
+        if index == 1 {
+            lyricsLabel.textColor = UIColor.lyricsColor
+        } else { lyricsLabel.textColor = .darkGray }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

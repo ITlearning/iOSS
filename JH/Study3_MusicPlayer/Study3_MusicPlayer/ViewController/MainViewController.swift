@@ -15,6 +15,8 @@ public extension UIColor {
     static let backgroundColor = UIColor(named: "backgroundColor")
     static let cellTextColor = UIColor(named: "cellTextColor")
     static let cellTitleTextColor = UIColor(named: "cellTitleTextColor")
+    static let lyricsColor = UIColor(named: "lyricsFocusingColor")
+
 }
 
 class MainViewController: UIViewController, AVAudioPlayerDelegate {
@@ -28,8 +30,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     var currentSongIndexPath: Int = -1
     var repeatButtonStateNumber: Int = .zero
     var currentVolumeStateNumber = 0
-    
-    var lyricsTextColorState = -1
+    var lyricsSyncIndex = 0
     
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -347,6 +348,7 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func initPlayer(songName: String, index: Int) {
+        // Audio Session 설정
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
@@ -355,17 +357,21 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
             print("audioSession 설정 오류 : \(error.localizedDescription)")
         }
         
+        // 음악 파일 가져오기
         guard let soundAsset: NSDataAsset = NSDataAsset(name: songName) else {
             print("음악 파일이 없습니다.")
             return
         }
         
+        // audio player를 초기화합니다.
         do {
             try musicPlayer = AVAudioPlayer(data: soundAsset.data)
             musicPlayer.delegate = self
             currentSongIndexPath = index
             remoteCommandInfoCenterSetting()
+            initLyrics(index: currentSongIndexPath)
             musicPlayer.volume = 1
+            self.lyricsSyncIndex = 0
             tableView.reloadData()
             musicPlayer.play()
 
@@ -376,6 +382,31 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         playSlider.maximumValue = Float(musicPlayer.duration);
         playSlider.minimumValue = 0;
         playSlider.value = Float(musicPlayer.currentTime);
+    }
+    
+    func initLyrics (index: Int) {
+        mainTableViewList.removeAll()
+        
+        if index == 0 {
+            for lyrics in stillLifeLyricsList {
+                let item: MainTableViewData = MainTableViewData(lyrics: lyrics, state: 0)
+                mainTableViewList.append(item)
+            }
+
+        } else if index == 1 {
+
+            for lyrics in beyondLoveLyricsList {
+                let item: MainTableViewData = MainTableViewData(lyrics: lyrics, state: 0)
+                mainTableViewList.append(item)
+            }
+            
+        } else if index == 2 {
+
+            for lyrics in ghostLyricsList {
+                let item: MainTableViewData = MainTableViewData(lyrics: lyrics, state: 0)
+                mainTableViewList.append(item)
+            }
+        }
     }
     
     func startOrStopFunction() {
@@ -433,7 +464,6 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         timer.fire();
     }
     
-    
     func updateTimeLabelText(currentTime:TimeInterval){
         let currentTimeMinute : Int = Int(currentTime / 60)
         let currentTimeSecond : Int = Int(currentTime.truncatingRemainder(dividingBy: 60))
@@ -444,15 +474,45 @@ class MainViewController: UIViewController, AVAudioPlayerDelegate {
         let currentTimeText : String = String(format : "%02ld:%02ld", currentTimeMinute, currentTimeSecond);
         let durationTimeText : String = String(format : "%02ld:%02ld", durationTimeMinute, durationTimeSecond);
         
-        lyricsFocusingFunction(minute: currentTimeMinute, second: currentTimeSecond)
+        lyricsFocusing(minute: currentTimeMinute, second: currentTimeSecond)
         currentTimeLabel.text = currentTimeText
         currentSongMaxTimeLabel.text = durationTimeText
     }
     
-    func lyricsFocusingFunction(minute: Int, second: Int) {
-        for i in 0...stillLifeLyricsTimeList.count - 1 {
-            if stillLifeLyricsTimeList[i][0] == minute && stillLifeLyricsTimeList[i][1] == second {
-                lyricsTextColorState = i
+    func lyricsFocusing(minute: Int, second: Int) {
+        
+        if currentSongIndexPath == 0 {
+            for index in lyricsSyncIndex...stillLifeLyricsTimeList.count - 1 {
+                if minute == stillLifeLyricsTimeList[index][0] && second == stillLifeLyricsTimeList[index][1] {
+                    if index % 6 == 0 { tableView.scrollToRow(at: [0, index], at: .top, animated: false) }
+                    mainTableViewList[index].state = 1
+                    if lyricsSyncIndex != 0 { mainTableViewList[index-1].state = 0 }
+                    self.lyricsSyncIndex = index
+                    tableView.reloadData()
+                }
+            }
+            
+        } else if currentSongIndexPath == 1 {
+            for index in lyricsSyncIndex...beyondLoveLyricsTimeList.count - 1 {
+                if minute == beyondLoveLyricsTimeList[index][0] && second == beyondLoveLyricsTimeList[index][1] {
+                    if index % 6 == 0 { tableView.scrollToRow(at: [0, index], at: .top, animated: false) }
+                    mainTableViewList[index].state = 1
+                    if lyricsSyncIndex != 0 { mainTableViewList[index-1].state = 0 }
+                    self.lyricsSyncIndex = index
+                    tableView.reloadData()
+                    print(lyricsSyncIndex)
+                }
+            }
+        } else if currentSongIndexPath == 2 {
+            for index in lyricsSyncIndex...ghostLyricsTimeList.count - 1 {
+                if minute == ghostLyricsTimeList[index][0] && second == ghostLyricsTimeList[index][1] {
+                    if index % 6 == 0 { tableView.scrollToRow(at: [0, index], at: .top, animated: false) }
+                    mainTableViewList[index].state = 1
+                    if lyricsSyncIndex != 0 { mainTableViewList[index-1].state = 0 }
+                    self.lyricsSyncIndex = index
+                    tableView.reloadData()
+                    print(lyricsSyncIndex)
+                }
             }
         }
     }
@@ -508,26 +568,23 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height - 430)
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//
+        // Save start time view at indexPath.
+//    }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var mainListCount = 0
-        
-        if currentSongIndexPath == 0 { mainListCount = stillLifeLyricsList.count }
-        else if currentSongIndexPath == 1 {  mainListCount = beyondLoveLyricsList.count }
-        else if currentSongIndexPath == 2 {  mainListCount = ghostLyricsList.count }
-        
-        return mainListCount
+        return mainTableViewList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewTableCell", for: indexPath) as? MainViewTableCell else { return UITableViewCell() }
+        let mainListData = mainTableViewList[indexPath.row]
         
-        if currentSongIndexPath == 0 { cell.transportDataToCell(lyricsText: stillLifeLyricsList[indexPath.row]) }
-        else if currentSongIndexPath == 1 { cell.transportDataToCell(lyricsText: beyondLoveLyricsList[indexPath.row]) }
-        else if currentSongIndexPath == 2 { cell.transportDataToCell(lyricsText: ghostLyricsList[indexPath.row]) }
-
+        cell.transportDataToCell(lyricsText: mainListData.lyrics, index: mainListData.state)
         cell.selectedBackgroundView = backgroud
         
         return cell
