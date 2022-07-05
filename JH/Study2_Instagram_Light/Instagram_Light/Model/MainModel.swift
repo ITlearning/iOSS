@@ -12,9 +12,9 @@ var list = [InstagramData]()
 struct InstagramData {
     
     let mainImage: UIImageView?
-    let mainTexts: String?
-    let like: String?
-    let upLoadDate: String?
+    let mainText: String?
+    let likeText: String?
+    let dateText: String?
 }
 
 

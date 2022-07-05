@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="MainDataEntity" representedClassName="MainDataEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateText" optional="YES" attributeType="String"/>
+        <attribute name="likeText" optional="YES" attributeType="String"/>
+        <attribute name="mainImage" optional="YES" attributeType="Binary"/>
+        <attribute name="mainText" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="MainDataEntity" positionX="-62.875" positionY="-450.26953125" width="128" height="89"/>
+    </elements>
+</model>

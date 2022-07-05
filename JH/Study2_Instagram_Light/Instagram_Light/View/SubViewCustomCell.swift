@@ -1,15 +1,16 @@
 //
-//  CustomCell.swift
+//  SubViewCustomCell.swift
 //  Instagram_Light
 //
-//  Created by Jaehyeok Lim on 2022/06/16.
+//  Created by Jaehyeok Lim on 2022/06/24.
 //
 
 import UIKit
 import SnapKit
 
-class MainViewCustomCell: UITableViewCell {
-    static let identifier = "MainViewCustomCell"
+class SubViewCustomCell: UITableViewCell {
+    static let identifier = "SubViewCustomCell"
+    static let userBaseImage = UIImage(named: "MainUserImage")
     
     private let userProfileImage: UIImageView = {
         let userProfileImage = UIImageView()
@@ -247,8 +248,8 @@ class MainViewCustomCell: UITableViewCell {
         }
         
         likeButton.addTarget(self, action:#selector(self.likeButtonAction), for: .touchUpInside)
-        editButton.addTarget(MainViewController.editButtonAction(_:), action: #selector(MainViewController.editButtonAction), for: .touchUpInside)
-        deleteButton.addTarget(MainViewController.deleteButtonAction(_:), action: #selector(MainViewController.deleteButtonAction), for: .touchUpInside)
+        editButton.addTarget(SubViewController.editButtonAction(_:), action: #selector(SubViewController.editButtonAction), for: .touchUpInside)
+        deleteButton.addTarget(SubViewController.deleteButtonAction(_:), action: #selector(SubViewController.deleteButtonAction), for: .touchUpInside)
     }
     
     @objc func likeButtonAction() {

@@ -18,6 +18,7 @@ class UserViewCustomCell: UICollectionViewCell {
     }()
     
     private func setConstraint() {
+        contentView.backgroundColor = UIColor.backgroundColor
         addSubview(UserViewImage)
 
         UserViewImage.snp.makeConstraints { make in
@@ -25,15 +26,8 @@ class UserViewCustomCell: UICollectionViewCell {
             make.leading.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.rightMargin.equalToSuperview()
-//            make.size.equalTo(CGSize(width: 400, height: 300))
         }
     }
-    
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setConstraint()
-//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
