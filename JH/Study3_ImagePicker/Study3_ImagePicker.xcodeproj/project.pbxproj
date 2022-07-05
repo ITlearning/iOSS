@@ -1,0 +1,816 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D11DEA53A5DEF20F7E49714 /* Pods_Study3_ImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D254E4528694BBBE8FD2CAC9 /* Pods_Study3_ImagePicker.framework */; };
+		770AA4C94ED404191317A0DB /* Pods_Study3_ImagePicker_Study3_ImagePickerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A410507AAFC1AF163F03834 /* Pods_Study3_ImagePicker_Study3_ImagePickerUITests.framework */; };
+		C4451F5EF8CF0B69220861FF /* Pods_Study3_ImagePickerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FFA646E344092D45E0E6419 /* Pods_Study3_ImagePickerTests.framework */; };
+		FA1A76CA2867AF73002AC5CA /* SubViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A76C92867AF73002AC5CA /* SubViewCustomCell.swift */; };
+		FA1A76CD2867AFEC002AC5CA /* SubModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A76CC2867AFEC002AC5CA /* SubModel.swift */; };
+		FA1A76CF28685158002AC5CA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A76CE28685158002AC5CA /* MainViewController.swift */; };
+		FA1A76D128688A20002AC5CA /* MainViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A76D028688A20002AC5CA /* MainViewCustomCell.swift */; };
+		FA1A76D328688A29002AC5CA /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A76D228688A29002AC5CA /* MainModel.swift */; };
+		FA1A76D9286B5D76002AC5CA /* DetailViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A76D8286B5D76002AC5CA /* DetailViewContoller.swift */; };
+		FA1A76DB286B622B002AC5CA /* DetailViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1A76DA286B622B002AC5CA /* DetailViewCustomCell.swift */; };
+		FA2DF131286795F700F2E060 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2DF130286795F700F2E060 /* AppDelegate.swift */; };
+		FA2DF133286795F700F2E060 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2DF132286795F700F2E060 /* SceneDelegate.swift */; };
+		FA2DF135286795F700F2E060 /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2DF134286795F700F2E060 /* SubViewController.swift */; };
+		FA2DF13B286795F700F2E060 /* Study3_ImagePicker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA2DF139286795F700F2E060 /* Study3_ImagePicker.xcdatamodeld */; };
+		FA2DF13D286795F800F2E060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA2DF13C286795F800F2E060 /* Assets.xcassets */; };
+		FA2DF140286795F800F2E060 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA2DF13E286795F800F2E060 /* LaunchScreen.storyboard */; };
+		FA2DF14B286795F800F2E060 /* Study3_ImagePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2DF14A286795F800F2E060 /* Study3_ImagePickerTests.swift */; };
+		FA2DF155286795F800F2E060 /* Study3_ImagePickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2DF154286795F800F2E060 /* Study3_ImagePickerUITests.swift */; };
+		FA2DF157286795F800F2E060 /* Study3_ImagePickerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2DF156286795F800F2E060 /* Study3_ImagePickerUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA2DF147286795F800F2E060 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA2DF125286795F700F2E060 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA2DF12C286795F700F2E060;
+			remoteInfo = Study3_ImagePicker;
+		};
+		FA2DF151286795F800F2E060 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA2DF125286795F700F2E060 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA2DF12C286795F700F2E060;
+			remoteInfo = Study3_ImagePicker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00459A9CDCA97697F5886A79 /* Pods-Study3_ImagePicker-Study3_ImagePickerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Study3_ImagePicker-Study3_ImagePickerUITests.release.xcconfig"; path = "Target Support Files/Pods-Study3_ImagePicker-Study3_ImagePickerUITests/Pods-Study3_ImagePicker-Study3_ImagePickerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		16034C68B3E742F044A565AB /* Pods-Study3_ImagePickerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Study3_ImagePickerTests.debug.xcconfig"; path = "Target Support Files/Pods-Study3_ImagePickerTests/Pods-Study3_ImagePickerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3079D34171E673D4D49ED269 /* Pods-Study3_ImagePicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Study3_ImagePicker.release.xcconfig"; path = "Target Support Files/Pods-Study3_ImagePicker/Pods-Study3_ImagePicker.release.xcconfig"; sourceTree = "<group>"; };
+		5A410507AAFC1AF163F03834 /* Pods_Study3_ImagePicker_Study3_ImagePickerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Study3_ImagePicker_Study3_ImagePickerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FFA646E344092D45E0E6419 /* Pods_Study3_ImagePickerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Study3_ImagePickerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		935CD4F4B1386A0BF9E54F73 /* Pods-Study3_ImagePickerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Study3_ImagePickerTests.release.xcconfig"; path = "Target Support Files/Pods-Study3_ImagePickerTests/Pods-Study3_ImagePickerTests.release.xcconfig"; sourceTree = "<group>"; };
+		CDAFF7626EEFABD3DD3AD9DE /* Pods-Study3_ImagePicker-Study3_ImagePickerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Study3_ImagePicker-Study3_ImagePickerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Study3_ImagePicker-Study3_ImagePickerUITests/Pods-Study3_ImagePicker-Study3_ImagePickerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D254E4528694BBBE8FD2CAC9 /* Pods_Study3_ImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Study3_ImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7CE6295AF7919F2A3AF78FD /* Pods-Study3_ImagePicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Study3_ImagePicker.debug.xcconfig"; path = "Target Support Files/Pods-Study3_ImagePicker/Pods-Study3_ImagePicker.debug.xcconfig"; sourceTree = "<group>"; };
+		FA1A76C92867AF73002AC5CA /* SubViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewCustomCell.swift; sourceTree = "<group>"; };
+		FA1A76CC2867AFEC002AC5CA /* SubModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubModel.swift; sourceTree = "<group>"; };
+		FA1A76CE28685158002AC5CA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		FA1A76D028688A20002AC5CA /* MainViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCustomCell.swift; sourceTree = "<group>"; };
+		FA1A76D228688A29002AC5CA /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		FA1A76D8286B5D76002AC5CA /* DetailViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewContoller.swift; sourceTree = "<group>"; };
+		FA1A76DA286B622B002AC5CA /* DetailViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCustomCell.swift; sourceTree = "<group>"; };
+		FA2DF12D286795F700F2E060 /* Study3_ImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Study3_ImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA2DF130286795F700F2E060 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA2DF132286795F700F2E060 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FA2DF134286795F700F2E060 /* SubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
+		FA2DF13A286795F700F2E060 /* Study3_ImagePicker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Study3_ImagePicker.xcdatamodel; sourceTree = "<group>"; };
+		FA2DF13C286795F800F2E060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA2DF13F286795F800F2E060 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FA2DF141286795F800F2E060 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA2DF146286795F800F2E060 /* Study3_ImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Study3_ImagePickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA2DF14A286795F800F2E060 /* Study3_ImagePickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study3_ImagePickerTests.swift; sourceTree = "<group>"; };
+		FA2DF150286795F800F2E060 /* Study3_ImagePickerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Study3_ImagePickerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA2DF154286795F800F2E060 /* Study3_ImagePickerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study3_ImagePickerUITests.swift; sourceTree = "<group>"; };
+		FA2DF156286795F800F2E060 /* Study3_ImagePickerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study3_ImagePickerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA2DF12A286795F700F2E060 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D11DEA53A5DEF20F7E49714 /* Pods_Study3_ImagePicker.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA2DF143286795F800F2E060 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4451F5EF8CF0B69220861FF /* Pods_Study3_ImagePickerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA2DF14D286795F800F2E060 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				770AA4C94ED404191317A0DB /* Pods_Study3_ImagePicker_Study3_ImagePickerUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A12380896CE2FE38A04B6713 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D254E4528694BBBE8FD2CAC9 /* Pods_Study3_ImagePicker.framework */,
+				5A410507AAFC1AF163F03834 /* Pods_Study3_ImagePicker_Study3_ImagePickerUITests.framework */,
+				6FFA646E344092D45E0E6419 /* Pods_Study3_ImagePickerTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E1694C28BF56C7B2EC6B09DE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E7CE6295AF7919F2A3AF78FD /* Pods-Study3_ImagePicker.debug.xcconfig */,
+				3079D34171E673D4D49ED269 /* Pods-Study3_ImagePicker.release.xcconfig */,
+				CDAFF7626EEFABD3DD3AD9DE /* Pods-Study3_ImagePicker-Study3_ImagePickerUITests.debug.xcconfig */,
+				00459A9CDCA97697F5886A79 /* Pods-Study3_ImagePicker-Study3_ImagePickerUITests.release.xcconfig */,
+				16034C68B3E742F044A565AB /* Pods-Study3_ImagePickerTests.debug.xcconfig */,
+				935CD4F4B1386A0BF9E54F73 /* Pods-Study3_ImagePickerTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA1A76C82867AF51002AC5CA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FA1A76C92867AF73002AC5CA /* SubViewCustomCell.swift */,
+				FA1A76D028688A20002AC5CA /* MainViewCustomCell.swift */,
+				FA1A76DA286B622B002AC5CA /* DetailViewCustomCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		FA1A76CB2867AFB1002AC5CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA1A76CC2867AFEC002AC5CA /* SubModel.swift */,
+				FA1A76D228688A29002AC5CA /* MainModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FA2DF124286795F700F2E060 = {
+			isa = PBXGroup;
+			children = (
+				FA2DF12F286795F700F2E060 /* Study3_ImagePicker */,
+				FA2DF149286795F800F2E060 /* Study3_ImagePickerTests */,
+				FA2DF153286795F800F2E060 /* Study3_ImagePickerUITests */,
+				FA2DF12E286795F700F2E060 /* Products */,
+				E1694C28BF56C7B2EC6B09DE /* Pods */,
+				A12380896CE2FE38A04B6713 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FA2DF12E286795F700F2E060 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA2DF12D286795F700F2E060 /* Study3_ImagePicker.app */,
+				FA2DF146286795F800F2E060 /* Study3_ImagePickerTests.xctest */,
+				FA2DF150286795F800F2E060 /* Study3_ImagePickerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA2DF12F286795F700F2E060 /* Study3_ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				FA2DF1632867985D00F2E060 /* ViewController */,
+				FA1A76C82867AF51002AC5CA /* Cell */,
+				FA1A76CB2867AFB1002AC5CA /* Model */,
+				FA2DF130286795F700F2E060 /* AppDelegate.swift */,
+				FA2DF132286795F700F2E060 /* SceneDelegate.swift */,
+				FA2DF13C286795F800F2E060 /* Assets.xcassets */,
+				FA2DF13E286795F800F2E060 /* LaunchScreen.storyboard */,
+				FA2DF141286795F800F2E060 /* Info.plist */,
+				FA2DF139286795F700F2E060 /* Study3_ImagePicker.xcdatamodeld */,
+			);
+			path = Study3_ImagePicker;
+			sourceTree = "<group>";
+		};
+		FA2DF149286795F800F2E060 /* Study3_ImagePickerTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA2DF14A286795F800F2E060 /* Study3_ImagePickerTests.swift */,
+			);
+			path = Study3_ImagePickerTests;
+			sourceTree = "<group>";
+		};
+		FA2DF153286795F800F2E060 /* Study3_ImagePickerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FA2DF154286795F800F2E060 /* Study3_ImagePickerUITests.swift */,
+				FA2DF156286795F800F2E060 /* Study3_ImagePickerUITestsLaunchTests.swift */,
+			);
+			path = Study3_ImagePickerUITests;
+			sourceTree = "<group>";
+		};
+		FA2DF1632867985D00F2E060 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FA2DF134286795F700F2E060 /* SubViewController.swift */,
+				FA1A76CE28685158002AC5CA /* MainViewController.swift */,
+				FA1A76D8286B5D76002AC5CA /* DetailViewContoller.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA2DF12C286795F700F2E060 /* Study3_ImagePicker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA2DF15A286795F800F2E060 /* Build configuration list for PBXNativeTarget "Study3_ImagePicker" */;
+			buildPhases = (
+				DDC540FE8726EA71FF28E1B7 /* [CP] Check Pods Manifest.lock */,
+				FA2DF129286795F700F2E060 /* Sources */,
+				FA2DF12A286795F700F2E060 /* Frameworks */,
+				FA2DF12B286795F700F2E060 /* Resources */,
+				90D5F21BBD179B98821C4BB4 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Study3_ImagePicker;
+			productName = Study3_ImagePicker;
+			productReference = FA2DF12D286795F700F2E060 /* Study3_ImagePicker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FA2DF145286795F800F2E060 /* Study3_ImagePickerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA2DF15D286795F800F2E060 /* Build configuration list for PBXNativeTarget "Study3_ImagePickerTests" */;
+			buildPhases = (
+				A4E53A167B709874DF0D975F /* [CP] Check Pods Manifest.lock */,
+				FA2DF142286795F800F2E060 /* Sources */,
+				FA2DF143286795F800F2E060 /* Frameworks */,
+				FA2DF144286795F800F2E060 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA2DF148286795F800F2E060 /* PBXTargetDependency */,
+			);
+			name = Study3_ImagePickerTests;
+			productName = Study3_ImagePickerTests;
+			productReference = FA2DF146286795F800F2E060 /* Study3_ImagePickerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FA2DF14F286795F800F2E060 /* Study3_ImagePickerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA2DF160286795F800F2E060 /* Build configuration list for PBXNativeTarget "Study3_ImagePickerUITests" */;
+			buildPhases = (
+				0204F762219303F0413829FC /* [CP] Check Pods Manifest.lock */,
+				FA2DF14C286795F800F2E060 /* Sources */,
+				FA2DF14D286795F800F2E060 /* Frameworks */,
+				FA2DF14E286795F800F2E060 /* Resources */,
+				B932C8AE1397D5DFE3AD4B38 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA2DF152286795F800F2E060 /* PBXTargetDependency */,
+			);
+			name = Study3_ImagePickerUITests;
+			productName = Study3_ImagePickerUITests;
+			productReference = FA2DF150286795F800F2E060 /* Study3_ImagePickerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA2DF125286795F700F2E060 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					FA2DF12C286795F700F2E060 = {
+						CreatedOnToolsVersion = 13.3;
+					};
+					FA2DF145286795F800F2E060 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = FA2DF12C286795F700F2E060;
+					};
+					FA2DF14F286795F800F2E060 = {
+						CreatedOnToolsVersion = 13.3;
+						TestTargetID = FA2DF12C286795F700F2E060;
+					};
+				};
+			};
+			buildConfigurationList = FA2DF128286795F700F2E060 /* Build configuration list for PBXProject "Study3_ImagePicker" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA2DF124286795F700F2E060;
+			productRefGroup = FA2DF12E286795F700F2E060 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA2DF12C286795F700F2E060 /* Study3_ImagePicker */,
+				FA2DF145286795F800F2E060 /* Study3_ImagePickerTests */,
+				FA2DF14F286795F800F2E060 /* Study3_ImagePickerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA2DF12B286795F700F2E060 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA2DF140286795F800F2E060 /* LaunchScreen.storyboard in Resources */,
+				FA2DF13D286795F800F2E060 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA2DF144286795F800F2E060 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA2DF14E286795F800F2E060 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0204F762219303F0413829FC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Study3_ImagePicker-Study3_ImagePickerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		90D5F21BBD179B98821C4BB4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Study3_ImagePicker/Pods-Study3_ImagePicker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Study3_ImagePicker/Pods-Study3_ImagePicker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Study3_ImagePicker/Pods-Study3_ImagePicker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4E53A167B709874DF0D975F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Study3_ImagePickerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B932C8AE1397D5DFE3AD4B38 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Study3_ImagePicker-Study3_ImagePickerUITests/Pods-Study3_ImagePicker-Study3_ImagePickerUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Study3_ImagePicker-Study3_ImagePickerUITests/Pods-Study3_ImagePicker-Study3_ImagePickerUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Study3_ImagePicker-Study3_ImagePickerUITests/Pods-Study3_ImagePicker-Study3_ImagePickerUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDC540FE8726EA71FF28E1B7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Study3_ImagePicker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA2DF129286795F700F2E060 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1A76CF28685158002AC5CA /* MainViewController.swift in Sources */,
+				FA2DF135286795F700F2E060 /* SubViewController.swift in Sources */,
+				FA1A76D9286B5D76002AC5CA /* DetailViewContoller.swift in Sources */,
+				FA2DF131286795F700F2E060 /* AppDelegate.swift in Sources */,
+				FA1A76CD2867AFEC002AC5CA /* SubModel.swift in Sources */,
+				FA2DF133286795F700F2E060 /* SceneDelegate.swift in Sources */,
+				FA1A76D328688A29002AC5CA /* MainModel.swift in Sources */,
+				FA1A76CA2867AF73002AC5CA /* SubViewCustomCell.swift in Sources */,
+				FA1A76D128688A20002AC5CA /* MainViewCustomCell.swift in Sources */,
+				FA2DF13B286795F700F2E060 /* Study3_ImagePicker.xcdatamodeld in Sources */,
+				FA1A76DB286B622B002AC5CA /* DetailViewCustomCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA2DF142286795F800F2E060 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA2DF14B286795F800F2E060 /* Study3_ImagePickerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA2DF14C286795F800F2E060 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA2DF157286795F800F2E060 /* Study3_ImagePickerUITestsLaunchTests.swift in Sources */,
+				FA2DF155286795F800F2E060 /* Study3_ImagePickerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA2DF148286795F800F2E060 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA2DF12C286795F700F2E060 /* Study3_ImagePicker */;
+			targetProxy = FA2DF147286795F800F2E060 /* PBXContainerItemProxy */;
+		};
+		FA2DF152286795F800F2E060 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA2DF12C286795F700F2E060 /* Study3_ImagePicker */;
+			targetProxy = FA2DF151286795F800F2E060 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FA2DF13E286795F800F2E060 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA2DF13F286795F800F2E060 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FA2DF158286795F800F2E060 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FA2DF159286795F800F2E060 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA2DF15B286795F800F2E060 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E7CE6295AF7919F2A3AF78FD /* Pods-Study3_ImagePicker.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6578S57CDT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Study3_ImagePicker/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Jaehyeoklim.Study3-ImagePicker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA2DF15C286795F800F2E060 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3079D34171E673D4D49ED269 /* Pods-Study3_ImagePicker.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6578S57CDT;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Study3_ImagePicker/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Jaehyeoklim.Study3-ImagePicker";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FA2DF15E286795F800F2E060 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16034C68B3E742F044A565AB /* Pods-Study3_ImagePickerTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6578S57CDT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Jaehyeoklim.Study3-ImagePickerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Study3_ImagePicker.app/Study3_ImagePicker";
+			};
+			name = Debug;
+		};
+		FA2DF15F286795F800F2E060 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 935CD4F4B1386A0BF9E54F73 /* Pods-Study3_ImagePickerTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6578S57CDT;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Jaehyeoklim.Study3-ImagePickerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Study3_ImagePicker.app/Study3_ImagePicker";
+			};
+			name = Release;
+		};
+		FA2DF161286795F800F2E060 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CDAFF7626EEFABD3DD3AD9DE /* Pods-Study3_ImagePicker-Study3_ImagePickerUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6578S57CDT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Jaehyeoklim.Study3-ImagePickerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Study3_ImagePicker;
+			};
+			name = Debug;
+		};
+		FA2DF162286795F800F2E060 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00459A9CDCA97697F5886A79 /* Pods-Study3_ImagePicker-Study3_ImagePickerUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6578S57CDT;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Jaehyeoklim.Study3-ImagePickerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Study3_ImagePicker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA2DF128286795F700F2E060 /* Build configuration list for PBXProject "Study3_ImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA2DF158286795F800F2E060 /* Debug */,
+				FA2DF159286795F800F2E060 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA2DF15A286795F800F2E060 /* Build configuration list for PBXNativeTarget "Study3_ImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA2DF15B286795F800F2E060 /* Debug */,
+				FA2DF15C286795F800F2E060 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA2DF15D286795F800F2E060 /* Build configuration list for PBXNativeTarget "Study3_ImagePickerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA2DF15E286795F800F2E060 /* Debug */,
+				FA2DF15F286795F800F2E060 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA2DF160286795F800F2E060 /* Build configuration list for PBXNativeTarget "Study3_ImagePickerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA2DF161286795F800F2E060 /* Debug */,
+				FA2DF162286795F800F2E060 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FA2DF139286795F700F2E060 /* Study3_ImagePicker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FA2DF13A286795F700F2E060 /* Study3_ImagePicker.xcdatamodel */,
+			);
+			currentVersion = FA2DF13A286795F700F2E060 /* Study3_ImagePicker.xcdatamodel */;
+			path = Study3_ImagePicker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = FA2DF125286795F700F2E060 /* Project object */;
+}
